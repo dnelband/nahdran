@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+### 'How To Setup'
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `npm install`
 
-## Available Scripts
+install all dependencies
 
-In the project directory, you can run:
+### `npm run build`
+
+compile the app into a viewable build
+
+### `npm run server`
+
+start the express server Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
 ### `npm start`
 
