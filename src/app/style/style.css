@@ -1,0 +1,23 @@
+body, html, #root, .App, main, .page {
+    height: 100%;
+}
+
+.App {
+    position: relative;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 50px;
+}
+
+.page {
+    padding-top: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
