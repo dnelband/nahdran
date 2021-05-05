@@ -51,6 +51,7 @@ function Header(){
 
   useEffect(() => {
       fetch('/db/pages').then(res => res.text()).then(res => {
+        console.log(res);
           setMenuItems(JSON.parse(res));
       });
   },[])
