@@ -1,16 +1,13 @@
-import { useState } from 'react';
-import GalleriesTable from './GalleriesTable';
 import PagesTable from './PagesTable';
-import Form from './Form';
+import GalleriesTable from './GalleriesTable';
+import Form from './Forms';
 
 function Admin(){
-
-    const [ section, setSection ] = useState('')
 
     let adminPath = window.location.pathname.split('/admin/')[1];
     if (adminPath && adminPath.indexOf('/') > -1) adminPath = adminPath.split('/')[0];
     let adminSectionDisplay;
-    console.log(adminPath);
+
     switch (adminPath) {
         case "pages":
             adminSectionDisplay = <PagesTable/>

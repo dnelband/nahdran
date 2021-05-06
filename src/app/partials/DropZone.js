@@ -12,8 +12,6 @@ function MyDropzone(props) {
     reader.readAsDataURL(acceptedFiles[0]);
   }, [])
 
-  console.log(props.image);
-
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
   const [ file, setFile ] = useState();
   const [ imgPath, setImgPath ] = useState();
@@ -35,7 +33,6 @@ function MyDropzone(props) {
             setProgress(progress);
         }
     }).then(res => {
-        console.log(res.data);
         props.onFinishUpload(res.data.path)
     }).catch(err => console.log(err))
   }

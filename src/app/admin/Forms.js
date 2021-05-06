@@ -174,6 +174,7 @@ function ContentsForm(props){
     const contentTypes = ["gallery","html","news","crew","contact","homepage"];
     const [ contentType, setContentType ] = useState(ct ? ct.type : "");
     const [ val, setVal ] = useState(ct ? ct.value : "");
+
     useEffect(() => {
         if (contentType === "homepage") setVal(0);
     },[contentType])
@@ -256,9 +257,7 @@ function ContentsForm(props){
 }
 
 function GalleryForm(props){
-    
-    console.log(props);
-    
+        
     const [ gallery, setGallery ] = useState();
     
     const [ title, setTitle ] = useState(); 

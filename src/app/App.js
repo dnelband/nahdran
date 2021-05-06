@@ -13,7 +13,7 @@ function App() {
   let pageDisplay, headerDisplay = <Header/>;
   switch (path) {
     case "":
-      pageDisplay = <Page path={"homepage"}/>
+      pageDisplay = <Page path={"home"}/>
       break;
     case "signin":
       pageDisplay = (
@@ -47,18 +47,31 @@ function App() {
 
 function Header(){
   
+  // state vars
   const [ menuItems, setMenuItems ] = useState();
 
+  // console.log menuItems to visiualize it
+  console.log(menuItems);
+
+  // will fire once on initialization
   useEffect(() => {
-      fetch('/db/pages').then(res => res.text()).then(res => {
-        console.log(res);
-          setMenuItems(JSON.parse(res));
-      });
+    getMenuItems();
   },[])
 
+  function getMenuItems(){
+    // fetch all items from the db table "pages" which we will use for the top menu
+    fetch('/db/pages').then(res => res.text()).then(res => {
+      // in order to use the data we get from the server we need to parse it to JSON - JSON.parse(res)
+      setMenuItems(JSON.parse(res));
+    });
+  }
+
+  // menu items display logic - wait for the state var  menuItems to be defined, then render menuItems 
+  // we do this to avoid errors when we try to render menuItems while its undefined
   let menuItemsDisplay;
   if (menuItems){
       menuItemsDisplay = menuItems.map((mi,index) => (
+        // mi - represnts every item in the "menuItems" array
           <a href={"/"+mi.link}><b> - {mi.title} - </b></a>
       ))
   }
@@ -66,7 +79,7 @@ function Header(){
   return (
       <header>
         <div className="ui container">
-        {menuItemsDisplay}
+          {menuItemsDisplay}
         </div>
       </header>
   )
