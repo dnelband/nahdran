@@ -8,8 +8,9 @@ const UserSignin = lazy(() => import('./partials/Signin'));
 const Admin = lazy(() => import('./admin/Admin'));
 
 function App() {
-
-  let path = window.location.pathname.split('/')[1]
+  // get the part of the url after the domain name, or in our case after the "localhost:XXXX" but before whatever comes after another "/"
+  let path = window.location.pathname.split('/')[1];
+  // use that path to determine which content we display
   let pageDisplay, headerDisplay = <Header/>;
   switch (path) {
     case "":
@@ -34,7 +35,7 @@ function App() {
         pageDisplay = <Page path={path}/>
       break;
   }
-
+  
   return (
     <div className="App">
       {headerDisplay}
