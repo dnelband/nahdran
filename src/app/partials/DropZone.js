@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import axios from 'axios';
 
@@ -14,14 +14,13 @@ function MyDropzone(props) {
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
   const [ file, setFile ] = useState();
-  const [ imgPath, setImgPath ] = useState();
+  const [ fileData, setFileData ] = useState();
   const [ progress, setProgress ] = useState(0);
 
   reader.addEventListener("load", function () {
     // convert image file to base64 string
-    setImgPath(reader.result)
+    setFileData(reader.result);
   }, false);
-
 
   const uploadFile = () => {
     const formData = new FormData();
@@ -33,15 +32,25 @@ function MyDropzone(props) {
             setProgress(progress);
         }
     }).then(res => {
-        props.onFinishUpload(res.data.path)
+        props.onFinishUpload(res.data)
     }).catch(err => console.log(err))
   }
 
-  let uploadButtonDisplay;
-  if (file) uploadButtonDisplay = <button onClick={uploadFile}>Upload img</button>
+  let itemDisplay, uploadButtonDisplay;
+  if (file){
+    if (file.type.indexOf('image') > -1) itemDisplay = <img width="100%" src={fileData}/>
+    else if (file.type.indexOf('video') > -1){
+      itemDisplay = (
+        <video src={fileData} width="320" height="240" controls>
+          <source src={fileData} type={file.type}></source>
+        </video>
+      )
+    }
+    uploadButtonDisplay = <button onClick={uploadFile}>Upload img</button>
+  }
 
   return (
-    <React.Fragment>
+    <div className="ui segment">
       <div className="dropzone-container" {...getRootProps()}>
         <input {...getInputProps()} />
         {
@@ -49,10 +58,10 @@ function MyDropzone(props) {
           <p>Drop the files here ...</p> :
           <p>Drag 'n' drop some files here, or click to select files</p>
         }
-        <img width="100%" src={imgPath}/>
+        {itemDisplay}
       </div>
       {uploadButtonDisplay}
-    </React.Fragment>
+    </div>
   )
 }
 

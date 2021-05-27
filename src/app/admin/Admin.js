@@ -1,6 +1,5 @@
-import PagesTable from './PagesTable';
-import GalleriesTable from './GalleriesTable';
-import Form from './Forms';
+import Table from './tables/Table';
+import Form from './forms/Form';
 
 function Admin(){
 
@@ -10,10 +9,16 @@ function Admin(){
 
     switch (adminPath) {
         case "pages":
-            adminSectionDisplay = <PagesTable/>
+            adminSectionDisplay = <Table type="pages"/>
             break;
-        case "galleries":
-            adminSectionDisplay = <GalleriesTable/>
+        case "news":
+            adminSectionDisplay = <Table type="news"/>
+            break;
+        case "messages":
+            adminSectionDisplay = <Table type="messages"/>
+            break;
+        case "crew":
+            adminSectionDisplay = <Table type="crew"/>
             break;
         case "create":
             adminSectionDisplay = <Form type="create"/>
@@ -33,7 +38,9 @@ function Admin(){
             <div className="ui secondary pointing menu">
                 <a className={"item " + (!adminPath ? "active" : "")} href="/admin">Main</a>
                 <a className={"item "  + (adminPath === "pages" ? "active" : "")} href="/admin/pages">Pages</a>
-                <a className={"item "  + (adminPath === "galleries" ? "active" : "")} href="/admin/galleries">Galleries</a>
+                <a className={"item "  + (adminPath === "news" ? "active" : "")} href="/admin/news">News</a>
+                <a className={"item "  + (adminPath === "crew" ? "active" : "")} href="/admin/crew">Crew</a>
+                <a className={"item "  + (adminPath === "messages" ? "active" : "")} href="/admin/messages">Messages</a>
             </div>
             {adminSectionDisplay}
         </section>

@@ -2,7 +2,7 @@
 var db = require('../database/db');
 
 exports.getPages = (req, res) => {
-    var sql = "SELECT * FROM pages ORDER BY page_id DESC"
+    var sql = "SELECT * FROM pages ORDER BY page_id ASC"
     var params = [req.params.id]
     db.all(sql, params, (err, row) => {
         if (err) {
@@ -38,13 +38,14 @@ exports.getPageById = (req, res) => {
   }
 
 exports.createPage = (req, res) => {
-    console.log('route create page');
+  console.log('route create page');
   const { title, link, background_image, show_in_menu } = req.body
   var sql = 'INSERT INTO pages (title, link, background_image, show_in_menu ) VALUES (?,?,?,?)'
   var params = [title, link, background_image, show_in_menu]
   db.run(sql, params, function (err, result) {
-      if (err){
-          res.status(400).json({"error": err.message})
+    console.log(err);
+    if (err){
+        res.status(400).json({"error": err.message})
           return;
       }
       res.json({

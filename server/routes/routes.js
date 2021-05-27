@@ -7,6 +7,7 @@ var contentsController = require('../controllers/contentsController.js');
 var galleriesController = require('../controllers/galleriesController.js');
 var newsController = require('../controllers/newsController.js');
 var crewController = require('../controllers/crewController.js');
+var messagesController = require('../controllers/messagesController.js');
 
 module.exports = function(app,passport) {
     
@@ -34,11 +35,26 @@ module.exports = function(app,passport) {
     app.delete('/db/galleryitems/:id', galleriesController.deleteGalleryItem)
     app.get('/db/galleryitemsbygallery/:id', galleriesController.getGalleryItemByGalleryId)
 
-    app.get('/db/newsitems', newsController.getNews)
-    app.get('/db/crewmembers', crewController.getCrew)
-    
+    app.get('/db/news/', newsController.getNews)
+    app.post('/db/news/', newsController.createNewsItem)
+    app.get('/db/news/:id', newsController.getNewsItem)
+    app.put('/db/news/:id', newsController.updateNewsItem)
+    app.delete('/db/news/:id', newsController.deleteNewsItem)
+
+    app.get('/db/crew/', crewController.getCrew)
+    app.post('/db/crew/', crewController.createCrewMember)
+    app.get('/db/crew/:id', crewController.getCrewMember)
+    app.put('/db/crew/:id', crewController.updateCrewMember)
+    app.delete('/db/crew/:id', crewController.deleteCrewMember)
+
+    app.get('/db/messages/', messagesController.getMessages)
+    app.post('/db/messages/', messagesController.createMessage)
+    app.get('/db/messages/:id', messagesController.getMessage)
+    app.put('/db/messages/:id', messagesController.updateMessage)
+    app.delete('/db/messages/:id', messagesController.deleteMessage)
+
     // Login
-    app.post('/db/signin', function(req, res, next) {
+    app.post('/db/signin/', function(req, res, next) {
         console.log("inside of the login",req.sessionID)
         // passport.authenticate with local parameter will call function that configured in passport.use(new strategyCalss)
         passport.authenticate('local-signin', function(err, user, info) {
@@ -52,28 +68,23 @@ module.exports = function(app,passport) {
             console.log('Inside req.login() callback')
             console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
             console.log(`req.user: ${JSON.stringify(req.user)}`)
-            if (err) { return next(err); }
-            return res.redirect('/admin');
+            if (err) { return next(err); } 
+            return res.redirect('/admin/');
             });
         })(req, res, next);
     });
-  
-      // IsLoggedIn
-      function isLoggedIn(req, res, next) {
-        console.log('isLoggedIn?')
-        console.log(req.isAuthenticated());
-        if (req.isAuthenticated()){ 
-            console.log('not authenticated')
-            return next();
-        } else {
-            res.redirect('/signin');
-        }
-      }
-  
-      // Get Admin
-      app.get('/admin',isLoggedIn, (req, res) => {
-          console.log('hello');
-        res.sendFile(path.join(__dirname, '../../build', 'index.html'));
-      });
 
+    // function isLoggedIn(req, res, next) {
+    //   if (req.isAuthenticated()){ 
+    //       return next(); 
+    //   } else {
+    //       res.redirect('/signin');
+    //   }
+    // }
+  
+    // // Get Admin
+    // app.get("/admin/",isLoggedIn, (req, res) => {
+    //   console.log('why not res send file?"?!"?§!"?§!?§!?!?§!');
+    //   res.sendFile(path.join(__dirname, '../../build', 'index.html'));
+    // });
 }

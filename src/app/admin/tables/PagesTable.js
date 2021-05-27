@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Gallery } from './GalleriesTable';
+import React, {useEffect, useState} from 'react';
 import $ from 'jquery';
-
 
 function PagesTable(){
 
@@ -26,28 +24,29 @@ function PagesTable(){
             <div className="section-header ui secondary menu">
                 <h1>Pages</h1>
                 <div className="ui right menu secondary">
-                    <a href="/admin/create/page" className="ui compact primary button labeled icon">
-                        <i class="plus icon"></i>
-                        Add Page
-                    </a>
+                    <div>
+                        <a href="/admin/create/page" className="ui green button labeled icon">
+                            <i className="plus icon"></i> Add Page
+                        </a>
+                    </div>
                 </div>
             </div>
-        <hr/>
-        <table class="ui celled padded table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>link</th>
-                    <th>show in menu</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                {tableRowsDisplay}
-            </tbody>
-        </table>
+            <hr/>
+            <table className="ui celled padded table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>link</th>
+                        <th>show in menu</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableRowsDisplay}
+                </tbody>
+            </table>
         </div>
     )
 }
@@ -74,14 +73,15 @@ function PagesTableItem(props){
             <td>{p.show_in_menu}</td>
             <td>
                 <a href={"/admin/edit/page/"+p.page_id} className="ui primary button icon">
-                    <i class="pencil icon"></i>
+                    <i className="pencil icon"></i>
                 </a>
                 <button onClick={onDeletePageClick} className="ui red button icon">
-                    <i class="remove icon"></i>
+                    <i className="remove icon"></i>
                 </button>
             </td>
         </tr>
     )
 }
+
 
 export default PagesTable;

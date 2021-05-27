@@ -7,12 +7,13 @@ function UserSignin(props) {
   const [password, setPassword] = useState('');
   
   function onSignin() {
+    console.log('on signin')
     $.ajax({
-      url:'/signin',
+      url:'/db/signin/',
       type:'POST',
       data: {username:username, password:password }
     }).done(function(res) {
-      console.log(res);
+      window.location.href = '/admin/';
     })
   } 
 
@@ -43,7 +44,7 @@ function UserSignin(props) {
                   <label>Password</label>
                   <input type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>
                 </div>
-                <button className="ui primary labeled icon button" type="submit" onClick={onSignin}>
+                <button className="ui primary labeled icon button" onClick={onSignin}>
                   <i className="unlock alternate icon"></i>
                   Login
                 </button>

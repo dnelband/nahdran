@@ -15,6 +15,7 @@
     "express-fileupload": "^1.2.1",
     "express-session": "^1.17.1",
     "file-uploader-react-component": "^8.1.0",
+    "image-thumbnail": "^1.0.13",
     "jquery": "^3.5.1",
     "md5": "^2.3.0",
     "methods": "^1.1.2",
@@ -57,5 +58,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-video-thumbnail": "^0.1.3"
   }
 }

@@ -90,9 +90,9 @@ exports.updateGallery = (req, res) => {
 
 exports.createGalleryItem = (req, res) => {
     console.log('route create gallery item');
-  const { type, gallery_id, filepath, title, caption } = req.body
-  var sql = 'INSERT INTO gallery_items (type, gallery_id, filepath, title, caption ) VALUES (?,?,?,?,?)'
-  var params = [ type, gallery_id, filepath, title, caption ]
+  const { type, gallery_id, filepath, thumbnail, title, caption } = req.body
+  var sql = 'INSERT INTO gallery_items (type, gallery_id, filepath, thumbnail, title, caption ) VALUES (?,?,?,?,?,?)'
+  var params = [ type, gallery_id, filepath, thumbnail, title, caption ]
   db.run(sql, params, function (err, result) {
       if (err){
           res.status(400).json({"error": err.message})
@@ -114,6 +114,7 @@ exports.updateGalleryItem = (req, res) => {
           type = COALESCE(?,type),
           gallery_id = COALESCE(?,gallery_id),
           filepath = COALESCE(?,filepath),
+          thumbnail = COALESCE(?,thumbnail),
           title = COALESCE(?,title),
           caption = COALESCE(?,caption)
           WHERE gallery_item_id = ?`,

@@ -73,13 +73,13 @@ function Header(){
   if (menuItems){
       menuItemsDisplay = menuItems.map((mi,index) => (
         // mi - represnts every item in the "menuItems" array
-          <a href={"/"+mi.link}><b> - {mi.title} - </b></a>
+          <a href={"/"+mi.link}><b>{mi.title}</b></a>
       ))
   }
 
   return (
       <header>
-        <div className="ui container">
+        <div className="ui container topmenu">
           {menuItemsDisplay}
         </div>
       </header>

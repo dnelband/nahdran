@@ -1,8 +1,8 @@
 
 var db = require('../database/db');
 
-exports.getNews = (req, res) => {
-    var sql = "SELECT * FROM news ORDER BY news_id DESC"
+exports.getMessages = (req, res) => {
+    var sql = "SELECT * FROM messages ORDER BY created_at DESC"
     var params = [req.params.id]
     db.all(sql, params, (err, row) => {
         if (err) {
@@ -13,8 +13,9 @@ exports.getNews = (req, res) => {
     });
 }
 
-exports.getNewsItem = (req, res) => {
-    var sql = "SELECT * FROM news WHERE news_id = ?"
+
+exports.getMessage = (req, res) => {
+    var sql = "SELECT * FROM messages WHERE msg_id = ?"
     var params = [req.params.id]
     db.all(sql, params, (err, row) => {
         if (err) {
@@ -25,10 +26,10 @@ exports.getNewsItem = (req, res) => {
     });
 }
 
-exports.createNewsItem = (req, res) => {
-    const { title, text } = req.body
-    var sql = 'INSERT INTO news (title, text ) VALUES (?,?)'
-    var params = [title, text]
+exports.createMessage = (req, res) => {
+    const { name, email, msg } = req.body
+    var sql = 'INSERT INTO messages (name, email, msg ) VALUES (?,?,?)'
+    var params = [name, email, msg]
     db.run(sql, params, function (err, result) {
       console.log(err);
       if (err){
@@ -43,14 +44,16 @@ exports.createNewsItem = (req, res) => {
     });
 }
 
-exports.updateNewsItem = (req, res) => {
-    const { title, text } = req.body
+exports.updateMessage = (req, res) => {
+    const { name, email, msg, read } = req.body
     db.run(
-      `UPDATE news SET 
-          title = COALESCE(?,title),
-          text = COALESCE(?,text)
-          WHERE news_id = ?`,
-      [ title, text, req.params.id],
+      `UPDATE messages SET 
+          name = COALESCE(?,name),
+          email = COALESCE(?,email),
+          msg = COALESCE(?,msg),
+          read = COALESCE(?,read)
+          WHERE msg_id = ?`,
+      [  name, email, msg, read, req.params.id],
       function (err, result) {
           if (err){
               res.status(400).json({"error": res.message})
@@ -61,9 +64,9 @@ exports.updateNewsItem = (req, res) => {
     );
   }
 
-  exports.deleteNewsItem = (req, res) => {
+  exports.deleteMessage = (req, res) => {
     db.run(
-      'DELETE FROM news WHERE news_id = ?',
+      'DELETE FROM messages WHERE msg_id = ?',
       req.params.id,
       function (err, result) {
           if (err){

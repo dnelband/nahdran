@@ -22,6 +22,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
                 link text,
                 background_image text, 
                 show_in_menu INTEGER,
+                createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
                 CONSTRAINT title_unique UNIQUE (title)
             )`
         ,
@@ -111,6 +112,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
                 type text,
                 gallery_id INTEGER,
                 filepath text, 
+                thumbnail text,
                 title text,
                 caption text,
                 createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -123,15 +125,10 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
                 console.log('Gallery Items table already created');
             } else {
                 // Table just created, creating some rows
-                var insert = 'INSERT INTO gallery_items (type,gallery_id, filepath, title, caption) VALUES (?,?,?,?,?)'
-                db.run(insert, ["picture",1,"pictures/1.jpg","test picture","lalalala caption"]);
-                db.run(insert, ["picture",1,"pictures/2.jpg","test picture","lalalala caption"]);
-                db.run(insert, ["picture",1,"pictures/3.jpg","test picture","lalalala caption"]);
-                db.run(insert, ["picture",1,"pictures/4.jpg","test picture","lalalala caption"]);
-                db.run(insert, ["picture",1,"pictures/5.jpg","test picture","lalalala caption"]);
-                db.run(insert, ["video",1,"videos/1.mp4","test video","video video caption"]);
+                var insert = 'INSERT INTO gallery_items (type,gallery_id, filepath, thumbnail, title, caption) VALUES (?,?,?,?,?,?)'
+                db.run(insert, ["picture",1,"pictures/1.jpg","","test picture","lalalala caption"]);
             }
-        });
+        }); 
 
         // Messages
         db.run(
@@ -182,6 +179,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
                 crew_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name text, 
                 job text,
+                type text,
                 picture text,
                 about text,
                 CONSTRAINT crew_id_unique UNIQUE (crew_id)
