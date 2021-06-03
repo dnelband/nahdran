@@ -22,6 +22,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
                 link text,
                 background_image text, 
                 show_in_menu INTEGER,
+                ord INTEGER,
                 createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
                 CONSTRAINT title_unique UNIQUE (title)
             )`
@@ -32,10 +33,10 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
                 console.log('Pages table already created');
             } else {
                 // Table just created, creating some rows
-                var insert = 'INSERT INTO pages (title,link,background_image,show_in_menu) VALUES (?,?,?,?)'
-                db.run(insert, ["home","home","pictures/2.jpg",1])
-                db.run(insert, ["test","test","pictures/1.jpg",1])
-                db.run(insert, ["with space","with_space","pictures/3.jpg",0])
+                var insert = 'INSERT INTO pages (title,link,background_image,show_in_menu, ord) VALUES (?,?,?,?,?)'
+                db.run(insert, ["home","home","pictures/2.jpg",1,1])
+                db.run(insert, ["test","test","pictures/1.jpg",1,2])
+                db.run(insert, ["with space","with_space","pictures/3.jpg",0.3])
             }
         });
 

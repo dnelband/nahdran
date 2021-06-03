@@ -26,6 +26,7 @@ header a {
     flex:1 1 auto;
     color: white;
     transition: 0.5s;
+    text-align: center;
 }
 
 header a:hover {
@@ -37,10 +38,13 @@ header a:hover {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment:fixed;
+    height: auto;
+    min-height: 100%;
 }
 
 .page-contents {
-    margin-top: 10vh;
+    margin-top: 20vh;
     padding: 15px;
     background-color: rgba(0,0,0,0.5);
     color: whitesmoke;

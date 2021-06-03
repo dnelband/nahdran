@@ -38,8 +38,9 @@ function PagesTable(){
                         <th>Id</th>
                         <th>Image</th>
                         <th>Title</th>
-                        <th>link</th>
-                        <th>show in menu</th>
+                        <th>Link</th>
+                        <th>Show in Menu</th>
+                        <th>Order</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
@@ -71,6 +72,7 @@ function PagesTableItem(props){
             <td width="50%">{p.title}</td>
             <td>{p.link} </td>
             <td>{p.show_in_menu}</td>
+            <td>{p.ord}</td>
             <td>
                 <a href={"/admin/edit/page/"+p.page_id} className="ui primary button icon">
                     <i className="pencil icon"></i>

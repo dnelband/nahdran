@@ -2,7 +2,7 @@
 var db = require('../database/db');
 
 exports.getPages = (req, res) => {
-    var sql = "SELECT * FROM pages ORDER BY page_id ASC"
+    var sql = "SELECT * FROM pages ORDER BY ord ASC"
     var params = [req.params.id]
     db.all(sql, params, (err, row) => {
         if (err) {
@@ -38,14 +38,12 @@ exports.getPageById = (req, res) => {
   }
 
 exports.createPage = (req, res) => {
-  console.log('route create page');
-  const { title, link, background_image, show_in_menu } = req.body
-  var sql = 'INSERT INTO pages (title, link, background_image, show_in_menu ) VALUES (?,?,?,?)'
-  var params = [title, link, background_image, show_in_menu]
+  const { title, link, background_image, show_in_menu, ord } = req.body
+  var sql = 'INSERT INTO pages (title, link, background_image, show_in_menu, ord ) VALUES (?,?,?,?,?)'
+  var params = [title, link, background_image, show_in_menu, ord]
   db.run(sql, params, function (err, result) {
-    console.log(err);
     if (err){
-        res.status(400).json({"error": err.message})
+        res.json({"error": err.message})
           return;
       }
       res.json({
@@ -57,15 +55,16 @@ exports.createPage = (req, res) => {
 } 
 
 exports.updatePage = (req, res) => {
-  const { title, link, background_image, show_in_menu } = req.body
+  const { title, link, background_image, show_in_menu, ord } = req.body
   db.run(
     `UPDATE pages SET 
         title = COALESCE(?,title),
         link = COALESCE(?,link),
         background_image = COALESCE(?,background_image),
-        show_in_menu = COALESCE(?,show_in_menu)
+        show_in_menu = COALESCE(?,show_in_menu),
+        ord = COALESCE(?,ord)
         WHERE page_id = ?`,
-    [ title, link, background_image, show_in_menu, req.params.id],
+    [ title, link, background_image, show_in_menu, ord, req.params.id],
     function (err, result) {
         if (err){
             res.status(400).json({"error": res.message})

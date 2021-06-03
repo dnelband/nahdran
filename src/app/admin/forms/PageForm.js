@@ -9,9 +9,11 @@ function PageForm(props) {
     let defLink = title.split('%20').join('_');
     const [ link, setLink ] = useState(defLink);
     const [ backgroundImage, setBackgroundImage ] = useState('');
-    const [ showInMenu, setShowInMenu ] = useState('');
+    const [ showInMenu, setShowInMenu ] = useState(1);
+    const [ order, setOrder ] = useState(0);
     const [ contents, setContents ] = useState([]);
     const [ showContentsForm, setShowContentsForm ] = useState(false);
+    const [ error, setError ] = useState('');
 
     useEffect(() => {
         if (props.type === "edit"){
@@ -25,8 +27,9 @@ function PageForm(props) {
             const page = JSON.parse(res)[0]
             setTitle(page.title);
             setLink(page.link);
-            setBackgroundImage(page.background_image)
-            setShowInMenu(page.show_in_menu)
+            setBackgroundImage(page.background_image);
+            setShowInMenu(page.show_in_menu);
+            setOrder(page.ord);
         });        
     }
 
@@ -52,26 +55,26 @@ function PageForm(props) {
     }
 
     function onSubmitClick() {
-        
+        setError('');
         const newPage = {
             title,
             link,
             background_image:backgroundImage,
-            show_in_menu:showInMenu
+            show_in_menu:showInMenu,
+            ord:order
         }
+        console.log(newPage);
 
         let ajaxMethod = "POST";
         if (props.type === "edit") ajaxMethod = "PUT";
-        console.log(props.itemId);
-        console.log(ajaxMethod);
-        console.log(newPage);
+        
         $.ajax({
             url:"/db/pages/" + (props.type === "edit" ? props.itemId : ""),
             method:ajaxMethod,
             data:newPage
         }).done(function(res) {
-            console.log("/admin/edit/page/" + parseInt(props.itemId))
-            window.location.href =  props.type === "edit" ? "/admin/edit/page/" + parseInt(props.itemId) : "/admin/pages/"
+            if (res.message) window.location.href =  props.type === "edit" ? "/admin/edit/page/" + parseInt(props.itemId) : "/admin/pages/"
+            else setError('Page title must be unique!')
         })
     }
 
@@ -121,6 +124,7 @@ function PageForm(props) {
                         <label>Title</label>
                         <input value={title} onChange={e => onSetTitle(e.target.value)} type="text"/>
                     </div>
+                    {error}
                     <div className="form-field">
                         <label>Link</label>
                         <input value={link} onChange={e => onSetLink(e.target.value)} type="text"/>
@@ -143,7 +147,10 @@ function PageForm(props) {
                         />
                         <label>no</label>
                     </div>
-
+                    <div className="form-field">
+                        <label>Order ( 0 = last )</label>
+                        <input min="0" value={order} onChange={e => setOrder(e.target.value)} type="number"/>
+                    </div>
                 </div>
 
             </div>
