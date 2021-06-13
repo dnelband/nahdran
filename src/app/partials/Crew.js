@@ -1,36 +1,37 @@
+import { useEffect, useState } from 'react';
 
-import { useEffect, useState } from "react";
+function Crew(props) {
+  // state var, crew members
+  const [crewMembers, setCrewMembers] = useState();
+  console.log(crewMembers);
 
-function Crew(props){
+  useEffect(() => {
+    getCrewMembers();
+  }, []);
 
-    const [ crew, setCrew ] = useState(); 
+  // fetch crew members from db
+  function getCrewMembers() {
+    fetch('/db/crew/')
+      .then(res => res.text())
+      .then(res => {
+        const result = JSON.parse(res);
+        setCrewMembers(result);
+      });
+  }
 
-    useEffect(() => {
-        fetch('/db/crew/').then(res => res.text()).then(res => {
-            setCrew(JSON.parse(res));
-        });
-    },[])
-
-    let crewMembersDisplay;
-    if (crew){
-        crewMembersDisplay = crew.map((cm,index) => (
-            <div className="crew-member eight wide column">
-                <img width="100" src={cm.picture}/>
-                <h2>{cm.name}</h2>
-                <h4>{cm.job}</h4>
-                <p>{cm.about}</p>
-            </div>
-        ))
-    }
-
-
-    return (
-        <div className="cast-crew-container">
-            <div className="ui grid">
-                {crewMembersDisplay}
-            </div>
-        </div>
-    )
+  let displayCrewMembers;
+  if (crewMembers) {
+    displayCrewMembers = crewMembers.map((cm, i) => (
+      <div key={i}>
+        <img src={cm.picture} width="100"></img>
+        <h3>{cm.name}</h3>
+        <span>{cm.job}</span>
+        <p>{cm.about}</p>
+      </div>
+    ));
+  }
+  // display all of them
+  return <div>{displayCrewMembers}</div>;
 }
 
 export default Crew;

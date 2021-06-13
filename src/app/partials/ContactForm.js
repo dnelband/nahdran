@@ -1,33 +1,119 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from 'react';
 import $ from 'jquery';
 
-function ContactForm(props){
+function ContactForm(props) {
+  // query the db for messages, check in the db table what info we need to be able to create a msg, then create a state var, for all the different msg fields
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [msg, setMsg] = useState('');
+  const [msgError, setMsgError] = useState(false);
+  const [msgSent, setMsgSent] = useState(false);
 
-    const [ name, setName ] = useState('');
-    const [ email, setEmail ] = useState('');
-    const [ msg, setMsg ] = useState('');
-    const [ isDone, setIsDone ] = useState(false);
+  //   make function for sumiting the form so it gets saved to the db, and showed in the admin panel
 
-    function submitMessage(){
-        $.ajax({
-            url:'/db/messages/',
-            type:'POST',
-            data:{name,email,msg}
-        }).done(function(res) {
-            setIsDone(true);
-        })
+  function submitForm() {
+    if (formValidation()) {
+      console.log('all guud');
+      // create an object for the message, with name email msg
+      const newMessage = {
+        name,
+        email,
+        msg,
+      };
+
+      $.ajax({
+        url: '/db/messages/',
+        method: 'POST',
+        data: newMessage,
+      }).done(function (res) {
+        setMsgSent(true);
+      });
     }
 
+    // log the object to console, make sure it looks like what we need to get
+  }
 
-    return (
-        <div className="contact-form">
-            <input type="text" value={name} onChange={e => setName(e.target.value)}/>
-            <input type="text" value={email} onChange={e => setEmail(e.target.value)}/>
-            <textarea type="text" value={msg} onChange={e => setMsg(e.target.value)}></textarea>
-            <button onClick={submitMessage}>Submit</button>
-            {isDone ? "message sent!" : ""}
-        </div>
-    )
+  function formValidation() {
+    // validation for each field
+    let isValidated = true;
+    if (name.length < 3) {
+      setNameError(true);
+      isValidated = false;
+    } else {
+      setNameError(false);
+    }
+
+    const pattern =
+      /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+.([a-zA-Z])+([a-zA-Z])+/;
+    const isValid = pattern.test(email);
+    if (!isValid) {
+      setEmailError(true);
+      isValidated = false;
+    } else {
+      setEmailError(false);
+    }
+
+    if (msg.length < 5) {
+      setMsgError(true);
+      isValidated = false;
+    } else {
+      setMsgError(false);
+    }
+
+    return isValidated;
+  }
+
+  let nameErrorDisplay;
+  if (nameError === true) {
+    nameErrorDisplay = <p>Please write your name</p>;
+  }
+  let emailErrorDisplay;
+  if (emailError === true) {
+    emailErrorDisplay = <p>Non valid email address</p>;
+  }
+  let msgerrorDisplay;
+  if (msgError === true) {
+    msgerrorDisplay = <p>Message needs to be longer</p>;
+  }
+
+  let submitSuccess;
+  if (msgSent === true) {
+    submitSuccess = <p>Message sent</p>;
+  }
+
+  // display the form
+  return (
+    <div>
+      <input value={name} onChange={e => setName(e.target.value)} type="text" />
+      {nameErrorDisplay}
+      <input
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        type="email"
+      />
+      {emailErrorDisplay}
+      <textarea
+        value={msg}
+        onChange={e => setMsg(e.target.value)}
+        type="text"
+      />
+      {msgerrorDisplay}
+      <button onClick={submitForm}>Submit</button>
+      {submitSuccess}
+    </div>
+  );
+
+  // test all fields
 }
 
 export default ContactForm;
+
+// to connect the display of an input(text email, nameetc) a state var we need to do teo things
+// #1 input must always show the value of the state var (value is the first element in the array the second element is the function to update)
+// #2 onChane must always update the state var
+
+// everytime we press a key like a letter or delete (a letter) it needs to be updated, we see that it does update by log to the console that a letter appears or dissapers in real time, use value and on change for making this happen
+
+// state var for errors are true or false the default should be false as we wont have errors until we msubmit or write something, and we also want a warning or so to be shown if there is an error, if default is set to true that warning would always be there
