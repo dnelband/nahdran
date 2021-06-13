@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
 import { SRLWrapper } from "simple-react-lightbox";
 import GalleryItemForm from './GalleryItemForm';
+import TextEditor from '../../partials/TextEditor';
 
 function GalleryForm(props){
         
@@ -81,7 +82,7 @@ function GalleryForm(props){
         <div className="ui raised segment gallery-container">
             <div className="header">
                 <input placeholder="Gallery Title..." type="text" onChange={e => setTitle(e.target.value)} value={title}/>
-                <textarea placeholder="Gallery Description..." value={description} onChange={e => setDescription(e.target.value)}></textarea>
+                <TextEditor val={description} onTextEditorUpdate={setDescription} />
             </div>
             <button onClick={onSubmitClick}>{props.type} gallery</button>
             <hr/>
