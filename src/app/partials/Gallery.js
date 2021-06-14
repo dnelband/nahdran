@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { SRLWrapper } from 'simple-react-lightbox';
-import './../style/gallery.css';
-import $ from 'jquery';
+import { useEffect, useState } from "react";
+import { SRLWrapper } from "simple-react-lightbox";
+import "./../style/gallery.css";
+import $ from "jquery";
 
 function Gallery(props) {
   const [galleryContent, setGalleryContent] = useState();
@@ -41,8 +41,8 @@ function Gallery(props) {
 
   function getGalleryContent() {
     fetch(`/db/galleries/${props.galleryId}`)
-      .then(res => res.text())
-      .then(res => {
+      .then((res) => res.text())
+      .then((res) => {
         const result = JSON.parse(res)[0];
         setGalleryContent(result);
       });
@@ -50,8 +50,8 @@ function Gallery(props) {
 
   function getGalleryItems() {
     fetch(`/db/galleryitemsbygallery/${props.galleryId}`)
-      .then(res => res.text())
-      .then(res => {
+      .then((res) => res.text())
+      .then((res) => {
         const result = JSON.parse(res);
         setGalleryItems(result);
       });
@@ -105,7 +105,6 @@ function Gallery(props) {
 
   return (
     <div>
-      {galleryContentDisplay}
       <div className="arrow-container">
         <a
           id="left-arrow"
@@ -163,6 +162,7 @@ function Gallery(props) {
           <SRLWrapper>{galleryItemsDisplay}</SRLWrapper>
         </div>
       </div>
+      {galleryContentDisplay}
     </div>
   );
 }
@@ -183,22 +183,22 @@ function GalleryItem(props) {
   }
 
   let itemDisplay;
-  if (gi.type === 'picture') {
+  if (gi.type === "picture") {
     itemDisplay = (
       <img
         className="gallery-items"
-        onLoad={e => onImgLoad(e)}
+        onLoad={(e) => onImgLoad(e)}
         src={__dirname + gi.thumbnail}
         width={props.itemWidth}
       ></img>
     );
-  } else if (gi.type === 'video') {
+  } else if (gi.type === "video") {
     itemDisplay = (
       <video src={__dirname + gi.filepath} width={props.itemWidth} controls>
         <source
           src={__dirname + gi.filepath}
           type={
-            'video/' + gi.filepath.split('.')[gi.filepath.split('.').length - 1]
+            "video/" + gi.filepath.split(".")[gi.filepath.split(".").length - 1]
           }
         ></source>
       </video>

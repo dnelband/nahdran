@@ -1,13 +1,14 @@
-import { Suspense, useEffect, useState } from 'react';
-import $ from 'jquery';
+import { Suspense, useEffect, useState } from "react";
+import $ from "jquery";
+// import contact from "./../style/contact.css";
 
 function ContactForm(props) {
   // query the db for messages, check in the db table what info we need to be able to create a msg, then create a state var, for all the different msg fields
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
   const [msgError, setMsgError] = useState(false);
   const [msgSent, setMsgSent] = useState(false);
 
@@ -15,7 +16,7 @@ function ContactForm(props) {
 
   function submitForm() {
     if (formValidation()) {
-      console.log('all guud');
+      console.log("all guud");
       // create an object for the message, with name email msg
       const newMessage = {
         name,
@@ -24,8 +25,8 @@ function ContactForm(props) {
       };
 
       $.ajax({
-        url: '/db/messages/',
-        method: 'POST',
+        url: "/db/messages/",
+        method: "POST",
         data: newMessage,
       }).done(function (res) {
         setMsgSent(true);
@@ -85,22 +86,46 @@ function ContactForm(props) {
 
   // display the form
   return (
-    <div>
-      <input value={name} onChange={e => setName(e.target.value)} type="text" />
-      {nameErrorDisplay}
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        type="email"
-      />
-      {emailErrorDisplay}
-      <textarea
-        value={msg}
-        onChange={e => setMsg(e.target.value)}
-        type="text"
-      />
-      {msgerrorDisplay}
-      <button onClick={submitForm}>Submit</button>
+    <div className="contact-form">
+      <div className="name">
+        <div>Name</div>
+        <input
+          className="inputarea"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type="text"
+        />
+        {nameErrorDisplay}
+      </div>
+
+      <div className="email">
+        <div>Email</div>
+        <input
+          className="inputarea"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+        />
+        {emailErrorDisplay}
+      </div>
+      <div className="msg">
+        <div>Your message</div>
+        <textarea
+          id="textarea"
+          className="inputarea"
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+          type="text"
+        />
+        {msgerrorDisplay}
+      </div>
+
+      <div className="submit">
+        <button className="btn" onClick={submitForm}>
+          Submit
+        </button>
+      </div>
+
       {submitSuccess}
     </div>
   );
