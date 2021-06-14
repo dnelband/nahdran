@@ -7,7 +7,7 @@ function Gallery(props) {
   const [galleryContent, setGalleryContent] = useState();
   const [galleryItems, setGalleryItems] = useState([]);
   const [sliderWidth, setSliderWidth] = useState(
-    window.innerWidth * 0.99 - 60.1
+    window.innerWidth * 0.95 - 100.1
   );
   const [itemWidth, setItemWidth] = useState(sliderWidth / 3);
   const [sliderPosition, setSliderPosition] = useState(0);

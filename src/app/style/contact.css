@@ -1,0 +1,19 @@
+#contact .content-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+#contact .content-display .contact-form {
+  display: grid;
+  grid-template-rows: 15% 15% 79% 10%;
+  margin-left: 90px;
+}
+#contact .content-display .contact-form .inputarea {
+  width: 275px;
+}
+#contact .content-display .contact-form .btn {
+  margin-left: 205px;
+}
+#contact .content-display .contact-form #textarea {
+  height: 270px;
+}

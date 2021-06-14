@@ -65,7 +65,7 @@ function Page(props) {
   }
 
   return (
-    <div className="page" style={containerStyle}>
+    <div className="page" id={props.path} style={containerStyle}>
       <div className="content-container">
         <div className="content-display">{contentDisplay}</div>
       </div>
