@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react';
 import $ from 'jquery';
 import GalleryForm from './GalleryForm';
 import NewsTable from "../tables/NewsTable";
+import TextEditor from '../../partials/TextEditor';
 
 function ContentsForm(props){
 
@@ -55,7 +56,12 @@ function ContentsForm(props){
     }
 
     let contentsDisplay;
-    if (contentType === "html") contentsDisplay = <textarea value={val} onChange={e => setVal(e.target.value)}></textarea>
+    if (contentType === "html"){
+        contentsDisplay = (
+            /*<textarea value={val} onChange={e => setVal(e.target.value)}></textarea>*/
+            <TextEditor val={val} onTextEditorUpdate={setVal} />
+        )
+    }
     else if (contentType === "gallery") contentsDisplay = <GalleryForm onCreateGallery={onSubmitClick} type={props.type} pageId={props.pageId} galleryId={ct ? ct.value : null} />
     else if (contentType === "news") contentsDisplay = <NewsTable />
 
