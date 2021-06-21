@@ -105,7 +105,7 @@ app.use(function(req, res){
 });
 
 // Server port
-var HTTP_PORT = 8080;
+var HTTP_PORT = 80;
 
 // Start server
 app.listen(HTTP_PORT, () => {
