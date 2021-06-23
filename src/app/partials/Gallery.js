@@ -13,7 +13,7 @@ function Gallery(props) {
   const [sliderPosition, setSliderPosition] = useState(0);
   const [stopAutoSlide, setStopAutoSlide] = useState(false);
   const [imgHeight, setImgHeight] = useState();
-  console.log(imgHeight);
+  const [numItemDisplay, setNumItemDisplay] = useState(3);
 
   let mySliderInterval;
 
@@ -25,7 +25,7 @@ function Gallery(props) {
   useEffect(() => {
     if (galleryItems.length > 0 && stopAutoSlide === false) {
       mySliderInterval = setInterval(function () {
-        onLeftArrowClick();
+        onRightArrowClick();
       }, 2500);
     }
     return () => {
@@ -57,23 +57,21 @@ function Gallery(props) {
       });
   }
 
-  function onLeftArrowClick(isClearInterval) {
-    let maxSliderPosition = 0 - (galleryItems.length - 3) * itemWidth;
+  function onRightArrowClick(isClearInterval) {
+    let maxSliderPosition =
+      0 - (galleryItems.length - numItemDisplay) * itemWidth;
     let newSliderPostion = sliderPosition - itemWidth;
     if (newSliderPostion === maxSliderPosition) {
-      newSliderPostion = 0;
+    } else {
+      setSliderPosition(newSliderPostion);
     }
     if (isClearInterval === true) {
       setStopAutoSlide(true);
     }
-    setSliderPosition(newSliderPostion);
   }
 
-  function onRightArrowClick(isClearInterval) {
+  function onLeftArrowClick(isClearInterval) {
     let newSliderPostion = sliderPosition + itemWidth;
-    if (newSliderPostion > 0) {
-      newSliderPostion = 0 - (galleryItems.length - 3) * itemWidth;
-    }
     if (isClearInterval === true) {
       setStopAutoSlide(true);
     }
@@ -98,17 +96,25 @@ function Gallery(props) {
     galleryContentDisplay = (
       <div>
         <h1> {galleryContent.title}</h1>
-        <p> {galleryContent.description}</p>
+        <div
+          dangerouslySetInnerHTML={{ __html: galleryContent.description }}
+        ></div>
       </div>
     );
   }
 
+  let maxSliderPosition =
+    0 - (galleryItems.length - numItemDisplay) * itemWidth + itemWidth;
+
+  console.log(sliderPosition, maxSliderPosition);
+
   return (
     <div>
+      <div className="description">{galleryContentDisplay}</div>
       <div className="arrow-container">
         <a
           id="left-arrow"
-          className="slider-arrow"
+          className={"slider-arrow" + (sliderPosition === 0 ? " disabled" : "")}
           onClick={() => onLeftArrowClick(true)}
           style={{ top: imgHeight / 2 - 35 }}
         >
@@ -128,7 +134,10 @@ function Gallery(props) {
         </a>
         <a
           id="right-arrow"
-          className="slider-arrow"
+          className={
+            "slider-arrow" +
+            (sliderPosition === maxSliderPosition ? " disabled" : "")
+          }
           onClick={() => onRightArrowClick(true)}
           style={{ top: imgHeight / 2 - 35 }}
         >
@@ -162,7 +171,6 @@ function Gallery(props) {
           <SRLWrapper>{galleryItemsDisplay}</SRLWrapper>
         </div>
       </div>
-      {galleryContentDisplay}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from "react";
 import $ from "jquery";
-import contact from "./../style/contact.css";
+import "./../style/contact.css";
 
 function ContactForm(props) {
   // query the db for messages, check in the db table what info we need to be able to create a msg, then create a state var, for all the different msg fields

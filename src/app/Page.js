@@ -49,12 +49,8 @@ function Page(props) {
   }
 
   let titleDisplay;
-  let containerStyle;
   if (page) {
     titleDisplay = page.title;
-    containerStyle = {
-      backgroundImage: `url(${page.background_image})`,
-    };
   }
 
   let contentDisplay;
@@ -65,9 +61,15 @@ function Page(props) {
   }
 
   return (
-    <div className="page" id={props.path} style={containerStyle}>
-      <div className="content-container">
-        <div className="content-display">{contentDisplay}</div>
+    <div className="page" id={props.path}>
+      <div className="background">
+        <img
+          className="background-img"
+          src={page ? page.background_image : ""}
+        />
+        <div className="content-container">
+          <div className="content-display">{contentDisplay}</div>
+        </div>
       </div>
     </div>
   );

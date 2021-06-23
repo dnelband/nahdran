@@ -1,3 +1,6 @@
+.description {
+  padding-bottom: 10vh;
+}
 .slider-container {
   overflow-x: hidden;
   overflow-y: hidden;
@@ -33,6 +36,10 @@
   background-color: rgba(255, 235, 205, 0.8);
   width: 38px;
   cursor: pointer;
+}
+.arrow-container .slider-arrow.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 .arrow-container .slider-arrow:hover {
   background-color: rgba(255, 235, 205, 0.9);

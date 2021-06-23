@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import crew from "././../style/crew.css";
+import "././../style/crew.css";
 
 function Crew(props) {
   // state var, crew members
