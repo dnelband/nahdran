@@ -8,7 +8,10 @@
 .slider-container .slider {
   transition: 0.2s;
 }
-.slider-container .slider .gallery-items {
+.slider-container .slider .gallery-item-container {
+  float: left;
+}
+.slider-container .slider .gallery-item-container .gallery-items {
   border-style: none;
   padding: 0 10px;
   cursor: pointer;

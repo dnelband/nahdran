@@ -25,6 +25,7 @@ main,
     width: 100%;
     height: 100%;
     overflow-y: scroll;
+    width: calc(100% + 20px);
 
     .background-img {
       position: fixed;
@@ -35,12 +36,19 @@ main,
       margin: auto;
       min-width: 50%;
       min-height: 50%;
+      &.max-height {
+        max-height: 100%;
+      }
+      &.max-width {
+        max-width: 100%;
+      }
     }
 
     .content-container {
       background: rgba(0, 0, 0, 0.7);
       color: blanchedalmond;
       margin: 0 auto;
+      margin-bottom: 200px;
       width: 95%;
       backdrop-filter: blur(2px);
       padding: 40px 50px;
@@ -55,27 +63,6 @@ main,
 
       .content-value {
         line-height: normal;
-      }
-    }
-  }
-}
-
-@media (max-width: 576px) {
-  .page {
-    .background {
-      .background-img {
-        left: -50vh;
-        right: auto;
-        max-height: 100%;
-      }
-    }
-  }
-}
-@media (min-width: 577px) {
-  .page {
-    .background {
-      .background-img {
-        max-width: 100%;
       }
     }
   }

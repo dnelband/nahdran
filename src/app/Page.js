@@ -22,9 +22,25 @@ import "./style/page.css";
 function Page(props) {
   const [page, setPage] = useState();
   const [content, setContent] = useState();
+  const initBgClass =
+    window.innerHeight * 1.6 < window.innerWidth ? "max-width" : "max-height";
+  const [bgClass, setBgClass] = useState(initBgClass);
+
   useEffect(() => {
     getPage();
+    window.addEventListener("resize", updateBgClass);
   }, []);
+
+  function updateBgClass() {
+    const initBgClass =
+      window.innerHeight * 1.6 < window.innerWidth ? "max-width" : "max-height";
+    setBgClass(initBgClass);
+    console.log(window.innerHeight, window.innerWidth);
+  }
+
+  // add a dynamic class to img element, a state var
+  // if window.innerhegit is bigger than window.innerwidth then the bg img should have have max height and no max width
+  // if window.innerwidth is bigger than window.innerheight then the bg img should have have max width and no max height
 
   useEffect(() => {
     if (page) getContent();
@@ -48,11 +64,6 @@ function Page(props) {
       });
   }
 
-  let titleDisplay;
-  if (page) {
-    titleDisplay = page.title;
-  }
-
   let contentDisplay;
   if (content) {
     contentDisplay = content.map((ct, i) => (
@@ -64,7 +75,7 @@ function Page(props) {
     <div className="page" id={props.path}>
       <div className="background">
         <img
-          className="background-img"
+          className={"background-img " + bgClass}
           src={page ? page.background_image : ""}
         />
         <div className="content-container">

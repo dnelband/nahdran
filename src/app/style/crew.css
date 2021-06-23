@@ -1,42 +1,49 @@
 .display-crew {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-gap: 40px;
 }
 .display-crew .crew {
   display: grid;
-  grid-template-columns: 180px 1fr 1fr;
-  grid-template-rows: 150px 150px auto;
+  grid-template-rows: 50px 1fr;
   overflow: hidden;
 }
-.display-crew .crew .profile-img {
+.display-crew .crew .title-container {
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
+  grid-row-end: 2;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 20px;
+}
+.display-crew .crew .title-container .name {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  font-size: 30px;
+}
+.display-crew .crew .title-container .job {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  font-size: 20px;
+  margin-top: 14px;
+}
+.display-crew .crew .about-container {
+  grid-row-start: 2;
   grid-row-end: 3;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 30px;
+}
+.display-crew .crew .about-container .profile-img {
+  grid-column-start: 1;
+  grid-column-end: 2;
   max-width: 100%;
   height: auto;
-  width: 300px;
+  width: 250px;
 }
-.display-crew .crew .name {
+.display-crew .crew .about-container .about {
   grid-column-start: 2;
   grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  margin-left: 20px;
-  padding-top: 50px;
-}
-.display-crew .crew .job {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  margin-left: 20px;
-  padding-top: 100px;
-}
-.display-crew .crew .about {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }

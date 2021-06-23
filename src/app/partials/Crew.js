@@ -24,10 +24,14 @@ function Crew(props) {
   if (crewMembers) {
     displayCrewMembers = crewMembers.map((cm, i) => (
       <div className="crew" key={i}>
-        <img className="profile-img" src={cm.picture} width="100" />
-        <h3 className="name">{cm.name}</h3>
-        <span className="job">{cm.job}</span>
-        <p className="about">{cm.about}</p>
+        <div className="title-container">
+          <h3 className="name">{cm.name}</h3>
+          <span className="job">{cm.job}</span>
+        </div>
+        <div className="about-container">
+          <img className="profile-img" src={cm.picture} width="100" />
+          <p className="about">{cm.about}</p>
+        </div>
       </div>
     ));
   }

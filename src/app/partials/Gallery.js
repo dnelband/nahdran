@@ -9,17 +9,26 @@ function Gallery(props) {
   const [sliderWidth, setSliderWidth] = useState(
     window.innerWidth * 0.95 - 100.1
   );
-  const [itemWidth, setItemWidth] = useState(sliderWidth / 3);
+  let initNumItemDisplay = 3;
+  if (sliderWidth / initNumItemDisplay <= 300) {
+    initNumItemDisplay = 2;
+    if (sliderWidth / initNumItemDisplay <= 300) {
+      initNumItemDisplay = 1;
+    }
+  }
+  const [numItemDisplay, setNumItemDisplay] = useState(initNumItemDisplay);
+
+  const [itemWidth, setItemWidth] = useState(sliderWidth / numItemDisplay);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [stopAutoSlide, setStopAutoSlide] = useState(false);
   const [imgHeight, setImgHeight] = useState();
-  const [numItemDisplay, setNumItemDisplay] = useState(3);
 
   let mySliderInterval;
 
   useEffect(() => {
     getGalleryContent();
     getGalleryItems();
+    window.addEventListener("resize", updateDimensions);
   }, []);
 
   useEffect(() => {
@@ -57,13 +66,32 @@ function Gallery(props) {
       });
   }
 
+  function updateDimensions() {
+    const newSliderWidth = window.innerWidth * 0.95 - 100.1;
+    let initNumItemDisplay = 3;
+    if (newSliderWidth / initNumItemDisplay <= 300) {
+      initNumItemDisplay = 2;
+      if (newSliderWidth / initNumItemDisplay <= 300) {
+        initNumItemDisplay = 1;
+      }
+    }
+    const newItemWidth = newSliderWidth / initNumItemDisplay;
+    const newImgHeight = newItemWidth / 1.6;
+    setSliderWidth(newSliderWidth);
+    setItemWidth(newItemWidth);
+    setImgHeight(newImgHeight);
+    setNumItemDisplay(initNumItemDisplay);
+  }
+
   function onRightArrowClick(isClearInterval) {
+    console.log("sssss");
     let maxSliderPosition =
       0 - (galleryItems.length - numItemDisplay) * itemWidth;
     let newSliderPostion = sliderPosition - itemWidth;
-    if (newSliderPostion === maxSliderPosition) {
-    } else {
+    console.log(newSliderPostion, maxSliderPosition);
+    if (newSliderPostion >= maxSliderPosition) {
       setSliderPosition(newSliderPostion);
+    } else {
     }
     if (isClearInterval === true) {
       setStopAutoSlide(true);
@@ -72,10 +100,12 @@ function Gallery(props) {
 
   function onLeftArrowClick(isClearInterval) {
     let newSliderPostion = sliderPosition + itemWidth;
+    if (newSliderPostion < 0) {
+      setSliderPosition(newSliderPostion);
+    }
     if (isClearInterval === true) {
       setStopAutoSlide(true);
     }
-    setSliderPosition(newSliderPostion);
   }
 
   let galleryItemsDisplay;
@@ -105,8 +135,6 @@ function Gallery(props) {
 
   let maxSliderPosition =
     0 - (galleryItems.length - numItemDisplay) * itemWidth + itemWidth;
-
-  console.log(sliderPosition, maxSliderPosition);
 
   return (
     <div>
@@ -186,7 +214,6 @@ function GalleryItem(props) {
     // #4 center arrow to height
     if (props.i === 1) {
       props.setImgHeight(e.target.height);
-      console.log(e.target.height);
     }
   }
 
@@ -212,6 +239,13 @@ function GalleryItem(props) {
       </video>
     );
   }
-  return <span>{itemDisplay}</span>;
+  return (
+    <div
+      className="gallery-item-container"
+      style={{ height: props.itemWidth / 1.6 + "px" }}
+    >
+      {itemDisplay}
+    </div>
+  );
 }
 export default Gallery;
