@@ -1,14 +1,14 @@
-import { Suspense, useEffect, useState } from "react";
-import $ from "jquery";
-import "./../style/contact.css";
+import { Suspense, useEffect, useState } from 'react';
+import $ from 'jquery';
+import './../style/contact.css';
 
 function ContactForm(props) {
   // query the db for messages, check in the db table what info we need to be able to create a msg, then create a state var, for all the different msg fields
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [nameError, setNameError] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState('');
   const [msgError, setMsgError] = useState(false);
   const [msgSent, setMsgSent] = useState(false);
 
@@ -16,7 +16,7 @@ function ContactForm(props) {
 
   function submitForm() {
     if (formValidation()) {
-      console.log("all guud");
+      console.log('all guud');
       // create an object for the message, with name email msg
       const newMessage = {
         name,
@@ -25,8 +25,8 @@ function ContactForm(props) {
       };
 
       $.ajax({
-        url: "/db/messages/",
-        method: "POST",
+        url: '/db/messages/',
+        method: 'POST',
         data: newMessage,
       }).done(function (res) {
         setMsgSent(true);
@@ -68,15 +68,15 @@ function ContactForm(props) {
 
   let nameErrorDisplay;
   if (nameError === true) {
-    nameErrorDisplay = <p>Please write your name</p>;
+    nameErrorDisplay = <p className="error">Please write your name</p>;
   }
   let emailErrorDisplay;
   if (emailError === true) {
-    emailErrorDisplay = <p>Non valid email address</p>;
+    emailErrorDisplay = <p className="error">Non valid email address</p>;
   }
   let msgerrorDisplay;
   if (msgError === true) {
-    msgerrorDisplay = <p>Message needs to be longer</p>;
+    msgerrorDisplay = <p className="error">Message needs to be longer</p>;
   }
 
   let submitSuccess;
@@ -90,10 +90,11 @@ function ContactForm(props) {
       <div className="name">
         <div>Name</div>
         <input
-          className="inputarea"
+          className="name-input"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
           type="text"
+          placeholder="Name"
         />
         {nameErrorDisplay}
       </div>
@@ -101,29 +102,31 @@ function ContactForm(props) {
       <div className="email">
         <div>Email</div>
         <input
-          className="inputarea"
+          className="email-input"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           type="email"
+          placeholder="Email"
         />
         {emailErrorDisplay}
       </div>
       <div className="msg">
-        <div>Your message</div>
+        <div>Dein Nachricht</div>
         <textarea
           id="textarea"
           className="inputarea"
           value={msg}
-          onChange={(e) => setMsg(e.target.value)}
+          onChange={e => setMsg(e.target.value)}
           type="text"
+          placeholder="Text"
         />
         {msgerrorDisplay}
       </div>
 
       <div className="submit">
-        <button className="btn" onClick={submitForm}>
+        <a className="btn" onClick={submitForm}>
           Submit
-        </button>
+        </a>
       </div>
 
       {submitSuccess}
