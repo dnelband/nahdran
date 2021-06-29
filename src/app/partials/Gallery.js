@@ -87,7 +87,6 @@ function Gallery(props) {
     let maxSliderPosition =
       0 - (galleryItems.length - numItemDisplay) * itemWidth;
     let newSliderPostion = sliderPosition - itemWidth;
-    console.log(newSliderPostion, maxSliderPosition);
     if (newSliderPostion >= maxSliderPosition) {
       setSliderPosition(newSliderPostion);
     } else {
@@ -215,7 +214,6 @@ function Gallery(props) {
 // this function is times the amount we have items
 function GalleryItem(props) {
   const gi = props.gi;
-  console.log(gi);
 
   function onImgLoad(e) {
     // #1 get onImgLoad

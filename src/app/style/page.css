@@ -7,6 +7,9 @@ main,
 .App {
   padding-top: 45px;
 }
+.page {
+  background-color: #000000;
+}
 .page .background {
   position: fixed;
   top: 45px;
@@ -26,6 +29,26 @@ main,
   min-width: 50%;
   min-height: 50%;
 }
+.page .background .background-img.full-bg {
+  opacity: 0;
+  transition: 500ms;
+}
+.page .background .background-img.full-bg.visible {
+  opacity: 1;
+}
+.page .background .background-img.small-bg {
+  filter: blur(2px);
+  min-width: 100%;
+  min-height: 100%;
+}
+.page .background .background-img.small-bg.max-height {
+  height: 200%;
+  width: auto;
+}
+.page .background .background-img.small-bg.max-width {
+  width: 200%;
+  height: auto;
+}
 .page .background .background-img.max-height {
   max-height: 100%;
 }
@@ -33,6 +56,10 @@ main,
   max-width: 100%;
 }
 .page .background .content-container {
+  opacity: 0;
+}
+.page .background .content-container.visible {
+  opacity: 1;
   background: rgba(0, 0, 0, 0.7);
   color: blanchedalmond;
   margin: 0 auto;
@@ -45,9 +72,9 @@ main,
   top: 10vh;
   position: relative;
 }
-.page .background .content-container .title {
+.page .background .content-container.visible .title {
   text-transform: uppercase;
 }
-.page .background .content-container .content-value {
+.page .background .content-container.visible .content-value {
   line-height: normal;
 }

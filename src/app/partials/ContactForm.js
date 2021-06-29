@@ -16,7 +16,6 @@ function ContactForm(props) {
 
   function submitForm() {
     if (formValidation()) {
-      console.log('all guud');
       // create an object for the message, with name email msg
       const newMessage = {
         name,

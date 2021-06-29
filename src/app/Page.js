@@ -1,3 +1,4 @@
+import { use } from 'passport';
 import { useEffect, useState } from 'react';
 import Content from './partials/Content';
 import './style/page.css';
@@ -23,8 +24,9 @@ function Page(props) {
   const [page, setPage] = useState();
   const [content, setContent] = useState();
   const initBgClass =
-    window.innerHeight * 1.6 < window.innerWidth ? 'max-width' : 'max-height';
+    window.innerHeight * 1.33 < window.innerWidth ? 'max-width' : 'max-height';
   const [bgClass, setBgClass] = useState(initBgClass);
+  const [fullBgLoaded, setFullBgLoaded] = useState(false);
 
   useEffect(() => {
     getPage();
@@ -33,7 +35,9 @@ function Page(props) {
 
   function updateBgClass() {
     const initBgClass =
-      window.innerHeight * 1.6 < window.innerWidth ? 'max-width' : 'max-height';
+      window.innerHeight * 1.33 < window.innerWidth
+        ? 'max-width'
+        : 'max-height';
     setBgClass(initBgClass);
   }
 
@@ -50,7 +54,6 @@ function Page(props) {
       .then(res => res.text())
       .then(res => {
         const result = JSON.parse(res)[0];
-        console.log(result);
         setPage(result);
       });
   }
@@ -60,7 +63,6 @@ function Page(props) {
       .then(res => res.text())
       .then(res => {
         const result = JSON.parse(res);
-        console.log(result);
         setContent(result);
       });
   }
@@ -72,14 +74,33 @@ function Page(props) {
     ));
   }
 
+  let thumbnailSrc;
+  if (page) {
+    thumbnailSrc = 'thumbnails/' + page.background_image.split('/')[1];
+  }
+
   return (
     <div className="page" id={props.path}>
       <div className="background">
         <img
-          className={'background-img ' + bgClass}
-          src={page ? page.background_image : ''}
+          className={'background-img ' + bgClass + ' small-bg'}
+          src={page ? thumbnailSrc : ''}
         />
-        <div className="content-container">
+        <img
+          className={
+            'background-img ' +
+            bgClass +
+            ' full-bg' +
+            (fullBgLoaded === true ? ' visible' : '')
+          }
+          src={page ? page.background_image : ''}
+          onLoad={() => setFullBgLoaded(true)}
+        />
+        <div
+          className={
+            'content-container' + (fullBgLoaded === true ? ' visible' : '')
+          }
+        >
           <div className="content-display">{contentDisplay}</div>
         </div>
       </div>

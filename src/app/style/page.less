@@ -10,14 +10,7 @@ main,
 }
 
 .page {
-  // background-size: cover;
-  // background-position: center;
-  // background-repeat: no-repeat;
-  // background-attachment: fixed;
-  // height: auto;
-  // min-height: 100%;
-  // padding-top: 10vh;
-
+  background-color: rgb(0, 0, 0);
   .background {
     position: fixed;
     top: 45px;
@@ -36,6 +29,29 @@ main,
       margin: auto;
       min-width: 50%;
       min-height: 50%;
+
+      &.full-bg {
+        opacity: 0;
+        transition: 500ms;
+        &.visible {
+          opacity: 1;
+        }
+      }
+
+      &.small-bg {
+        filter: blur(2px);
+        min-width: 100%;
+        min-height: 100%;
+        &.max-height {
+          height: 200%;
+          width: auto;
+        }
+        &.max-width {
+          width: 200%;
+          height: auto;
+        }
+      }
+
       &.max-height {
         max-height: 100%;
       }
@@ -45,6 +61,11 @@ main,
     }
 
     .content-container {
+      opacity: 0;
+    }
+    .content-container.visible {
+      opacity: 1;
+      // transition: 500ms;
       background: rgba(0, 0, 0, 0.7);
       color: blanchedalmond;
       margin: 0 auto;
