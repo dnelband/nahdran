@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { SRLWrapper } from "simple-react-lightbox";
-import "./../style/gallery.css";
-import $ from "jquery";
+import { useEffect, useState } from 'react';
+import { SRLWrapper } from 'simple-react-lightbox';
+import './../style/gallery.css';
+import $ from 'jquery';
 
 function Gallery(props) {
   const [galleryContent, setGalleryContent] = useState();
@@ -28,7 +28,7 @@ function Gallery(props) {
   useEffect(() => {
     getGalleryContent();
     getGalleryItems();
-    window.addEventListener("resize", updateDimensions);
+    window.addEventListener('resize', updateDimensions);
   }, []);
 
   useEffect(() => {
@@ -50,8 +50,8 @@ function Gallery(props) {
 
   function getGalleryContent() {
     fetch(`/db/galleries/${props.galleryId}`)
-      .then((res) => res.text())
-      .then((res) => {
+      .then(res => res.text())
+      .then(res => {
         const result = JSON.parse(res)[0];
         setGalleryContent(result);
       });
@@ -59,8 +59,8 @@ function Gallery(props) {
 
   function getGalleryItems() {
     fetch(`/db/galleryitemsbygallery/${props.galleryId}`)
-      .then((res) => res.text())
-      .then((res) => {
+      .then(res => res.text())
+      .then(res => {
         const result = JSON.parse(res);
         setGalleryItems(result);
       });
@@ -84,7 +84,6 @@ function Gallery(props) {
   }
 
   function onRightArrowClick(isClearInterval) {
-    console.log("sssss");
     let maxSliderPosition =
       0 - (galleryItems.length - numItemDisplay) * itemWidth;
     let newSliderPostion = sliderPosition - itemWidth;
@@ -136,13 +135,23 @@ function Gallery(props) {
   let maxSliderPosition =
     0 - (galleryItems.length - numItemDisplay) * itemWidth + itemWidth;
 
+  const options = {
+    buttons: {
+      showDownloadButton: false,
+      showThumbnailsButton: false,
+    },
+    thumbnails: {
+      showThumbnails: false,
+    },
+  };
+
   return (
     <div>
       <div className="description">{galleryContentDisplay}</div>
       <div className="arrow-container">
         <a
           id="left-arrow"
-          className={"slider-arrow" + (sliderPosition === 0 ? " disabled" : "")}
+          className={'slider-arrow' + (sliderPosition === 0 ? ' disabled' : '')}
           onClick={() => onLeftArrowClick(true)}
           style={{ top: imgHeight / 2 - 35 }}
         >
@@ -163,8 +172,8 @@ function Gallery(props) {
         <a
           id="right-arrow"
           className={
-            "slider-arrow" +
-            (sliderPosition === maxSliderPosition ? " disabled" : "")
+            'slider-arrow' +
+            (sliderPosition === maxSliderPosition ? ' disabled' : '')
           }
           onClick={() => onRightArrowClick(true)}
           style={{ top: imgHeight / 2 - 35 }}
@@ -196,7 +205,7 @@ function Gallery(props) {
             marginLeft: sliderPosition,
           }}
         >
-          <SRLWrapper>{galleryItemsDisplay}</SRLWrapper>
+          <SRLWrapper options={options}>{galleryItemsDisplay}</SRLWrapper>
         </div>
       </div>
     </div>
@@ -206,6 +215,7 @@ function Gallery(props) {
 // this function is times the amount we have items
 function GalleryItem(props) {
   const gi = props.gi;
+  console.log(gi);
 
   function onImgLoad(e) {
     // #1 get onImgLoad
@@ -218,22 +228,22 @@ function GalleryItem(props) {
   }
 
   let itemDisplay;
-  if (gi.type === "picture") {
+  if (gi.type === 'picture') {
     itemDisplay = (
       <img
         className="gallery-items"
-        onLoad={(e) => onImgLoad(e)}
+        onLoad={e => onImgLoad(e)}
         src={__dirname + gi.thumbnail}
         width={props.itemWidth}
       ></img>
     );
-  } else if (gi.type === "video") {
+  } else if (gi.type === 'video') {
     itemDisplay = (
       <video src={__dirname + gi.filepath} width={props.itemWidth} controls>
         <source
           src={__dirname + gi.filepath}
           type={
-            "video/" + gi.filepath.split(".")[gi.filepath.split(".").length - 1]
+            'video/' + gi.filepath.split('.')[gi.filepath.split('.').length - 1]
           }
         ></source>
       </video>
@@ -242,9 +252,9 @@ function GalleryItem(props) {
   return (
     <div
       className="gallery-item-container"
-      style={{ height: props.itemWidth / 1.6 + "px" }}
+      style={{ height: props.itemWidth / 1.6 + 'px' }}
     >
-      {itemDisplay}
+      <a href={__dirname + gi.filepath}>{itemDisplay}</a>
     </div>
   );
 }
