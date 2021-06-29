@@ -1,49 +1,98 @@
-.display-crew {
-  display: grid;
-  grid-gap: 40px;
+@media (min-width: 1020px) {
+  .display-crew {
+    display: grid;
+    grid-gap: 40px;
+  }
+  .display-crew .crew {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    overflow: hidden;
+    grid-gap: 40px;
+  }
+  .display-crew .crew .profile-img {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+  }
+  .display-crew .crew .about-container {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-rows: 30px 40px auto;
+    grid-gap: 15px;
+    margin-top: 5px;
+  }
+  .display-crew .crew .about-container .name {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    font-size: 30px;
+    padding-top: 15px;
+  }
+  .display-crew .crew .about-container .job {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    font-size: 20px;
+    margin-top: 14px;
+  }
+  .display-crew .crew .about-container .about {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    font-size: 17px;
+  }
+  .display-crew .crew .about-container .about .read-more {
+    color: red;
+    cursor: pointer;
+  }
+  .display-crew .crew .about-container .about .read-more .bi {
+    margin-left: 5px;
+  }
 }
-.display-crew .crew {
-  display: grid;
-  grid-template-rows: 50px 1fr;
-  overflow: hidden;
+@media (max-width: 1019px) {
+  .display-crew {
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .display-crew .crew {
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+  .display-crew .crew .img-container {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+  .display-crew .crew .img-container .profile-img {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+  .display-crew .crew .img-container .title-container {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    padding-top: 95px;
+    padding-left: 15px;
+  }
+  .display-crew .crew .img-container .title-container .name {
+    margin: 5px 0 3px;
+  }
+  .display-crew .crew .about {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    margin-top: 10px;
+  }
+  .display-crew .crew .about .read-more {
+    color: red;
+    cursor: pointer;
+  }
+  .display-crew .crew .about .read-more .bi {
+    margin-left: 5px;
+  }
 }
-.display-crew .crew .title-container {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-gap: 20px;
-}
-.display-crew .crew .title-container .name {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  font-size: 30px;
-}
-.display-crew .crew .title-container .job {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  font-size: 20px;
-  margin-top: 14px;
-}
-.display-crew .crew .about-container {
-  grid-row-start: 2;
-  grid-row-end: 3;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-gap: 30px;
-}
-.display-crew .crew .about-container .profile-img {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  max-width: 100%;
-  height: auto;
-  width: 250px;
-}
-.display-crew .crew .about-container .about {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
+@media (max-width: 608px) {
+  .display-crew {
+    grid-template-columns: 1fr;
+  }
 }

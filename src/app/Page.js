@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import Content from "./partials/Content";
-import "./style/page.css";
+import { useEffect, useState } from 'react';
+import Content from './partials/Content';
+import './style/page.css';
 
 // #1 in a useEffect method (with no vars in the second argument), fetch the page we need using the props.path variable,
 //    with this url `/db/pages/${props.path}`
@@ -23,19 +23,18 @@ function Page(props) {
   const [page, setPage] = useState();
   const [content, setContent] = useState();
   const initBgClass =
-    window.innerHeight * 1.6 < window.innerWidth ? "max-width" : "max-height";
+    window.innerHeight * 1.6 < window.innerWidth ? 'max-width' : 'max-height';
   const [bgClass, setBgClass] = useState(initBgClass);
 
   useEffect(() => {
     getPage();
-    window.addEventListener("resize", updateBgClass);
+    window.addEventListener('resize', updateBgClass);
   }, []);
 
   function updateBgClass() {
     const initBgClass =
-      window.innerHeight * 1.6 < window.innerWidth ? "max-width" : "max-height";
+      window.innerHeight * 1.6 < window.innerWidth ? 'max-width' : 'max-height';
     setBgClass(initBgClass);
-    console.log(window.innerHeight, window.innerWidth);
   }
 
   // add a dynamic class to img element, a state var
@@ -48,8 +47,8 @@ function Page(props) {
 
   function getPage() {
     fetch(`/db/pages/${props.path}`)
-      .then((res) => res.text())
-      .then((res) => {
+      .then(res => res.text())
+      .then(res => {
         const result = JSON.parse(res)[0];
         setPage(result);
       });
@@ -57,8 +56,8 @@ function Page(props) {
 
   function getContent() {
     fetch(`/db/contentsbypage/${page.page_id}`)
-      .then((res) => res.text())
-      .then((res) => {
+      .then(res => res.text())
+      .then(res => {
         const result = JSON.parse(res);
         setContent(result);
       });
@@ -75,8 +74,8 @@ function Page(props) {
     <div className="page" id={props.path}>
       <div className="background">
         <img
-          className={"background-img " + bgClass}
-          src={page ? page.background_image : ""}
+          className={'background-img ' + bgClass}
+          src={page ? page.background_image : ''}
         />
         <div className="content-container">
           <div className="content-display">{contentDisplay}</div>
