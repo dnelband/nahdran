@@ -47,3 +47,17 @@
   background-color: rgba(245, 245, 245, 0.445);
   transition: 0.15s;
 }
+@media (max-width: 737px) {
+  .slider-container {
+    margin: 0 -2.5vw;
+  }
+  .arrow-container {
+    position: relative;
+  }
+  .arrow-container #right-arrow .bi {
+    margin-left: 0px;
+  }
+  .arrow-container #left-arrow .bi {
+    margin-left: -30px;
+  }
+}

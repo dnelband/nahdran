@@ -34,14 +34,19 @@ header .menu a.active {
   .mobile-menu .menu-icon {
     color: white;
   }
-  .menu {
+  .menu-container {
+    overflow: scroll;
+    height: 90vh;
+    width: 103vw;
+  }
+  .menu-container .menu {
     color: white;
     display: grid;
     background-color: #000000f0;
     height: auto !important;
     text-align: center;
   }
-  .menu a {
-    font-size: 30px;
+  .menu-container .menu a {
+    font-size: 20px;
   }
 }

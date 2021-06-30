@@ -68,7 +68,9 @@ function Header(props) {
         </svg>
       </a>
       {showMobileMenu === true ? (
-        <div className="menu">{menuItemsDisplay}</div>
+        <div className="menu-container">
+          <div className="menu">{menuItemsDisplay}</div>
+        </div>
       ) : (
         ''
       )}

@@ -7,9 +7,6 @@ main,
 .App {
   padding-top: 45px;
 }
-.page {
-  background-color: #000000;
-}
 .page .background {
   position: fixed;
   top: 45px;
@@ -62,15 +59,15 @@ main,
   opacity: 1;
   background: rgba(0, 0, 0, 0.7);
   color: blanchedalmond;
-  margin: 0 auto;
+  margin: 0 5vw;
   margin-bottom: 200px;
-  width: 95%;
   backdrop-filter: blur(2px);
   padding: 40px 50px;
   z-index: 0;
   font-size: medium;
   top: 10vh;
   position: relative;
+  width: 90vw;
 }
 .page .background .content-container.visible .title {
   text-transform: uppercase;

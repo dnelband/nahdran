@@ -67,20 +67,28 @@ function ContactForm(props) {
 
   let nameErrorDisplay;
   if (nameError === true) {
-    nameErrorDisplay = <p className="error">Please write your name</p>;
+    nameErrorDisplay = (
+      <p className="error">Muss mindestens 3 Zeichen erhalten.</p>
+    );
   }
   let emailErrorDisplay;
   if (emailError === true) {
-    emailErrorDisplay = <p className="error">Non valid email address</p>;
+    emailErrorDisplay = (
+      <p className="error">Gib bitte eine gültige E-mail Adresse ein.</p>
+    );
   }
   let msgerrorDisplay;
   if (msgError === true) {
-    msgerrorDisplay = <p className="error">Message needs to be longer</p>;
+    msgerrorDisplay = (
+      <p className="error">Muss mindestens 5 Zeichen erhalten.</p>
+    );
   }
 
   let submitSuccess;
   if (msgSent === true) {
-    submitSuccess = <p>Message sent</p>;
+    submitSuccess = (
+      <p className="success">Nachricht würde erfolgreich gesendet!</p>
+    );
   }
 
   // display the form
