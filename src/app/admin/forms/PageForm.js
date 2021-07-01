@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import MyDropzone from '../../partials/DropZone';
 import ContentsForm from './ContentsForm';
+import pagesAdmin from './../../style/pagesAdmin.css';
 
 function PageForm(props) {
   const [title, setTitle] = useState('');
@@ -13,6 +14,9 @@ function PageForm(props) {
   const [contents, setContents] = useState([]);
   const [showContentsForm, setShowContentsForm] = useState(false);
   const [error, setError] = useState('');
+  const [showUploader, setShowUploader] = useState(false);
+  const previousBg = usePrevious(backgroundImage);
+  console.log(previousBg, 'prevoisBg');
 
   useEffect(() => {
     if (props.type === 'edit') {
@@ -20,6 +24,13 @@ function PageForm(props) {
       getContents();
     }
   }, []);
+
+  useEffect(() => {
+    if (backgroundImage && previousBg && backgroundImage !== previousBg) {
+      console.log('this should update');
+      onSubmitClick();
+    }
+  }, [backgroundImage]);
 
   function getPage() {
     fetch('/db/pagesbyid/' + props.itemId)
@@ -132,16 +143,32 @@ function PageForm(props) {
     );
   }
 
+  let uploaderDisplay;
+  if (showUploader === true) {
+    uploaderDisplay = (
+      <MyDropzone
+        image={backgroundImage}
+        onFinishUpload={onSetBackgroundImage}
+      />
+    );
+  } else {
+    uploaderDisplay = (
+      <img width="100" height="auto" src={__dirname + backgroundImage} />
+    );
+  }
+
   return (
     <div className="page-form">
       <div className="ui grid">
         <div className="four wide column">
           <div className="form-field">
-            <img width="100" height="auto" src={__dirname + backgroundImage} />
-            <MyDropzone
-              image={backgroundImage}
-              onFinishUpload={onSetBackgroundImage}
-            />
+            <i
+              className="plus icon"
+              onClick={() =>
+                setShowUploader(showUploader === true ? false : true)
+              }
+            ></i>
+            {uploaderDisplay}
           </div>
         </div>
 
@@ -201,5 +228,20 @@ function PageForm(props) {
     </div>
   );
 }
+
+// Hook use Previous
+export const usePrevious = value => {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+};
 
 export default PageForm;

@@ -121,6 +121,7 @@ exports.updateGalleryItem = (req, res) => {
           WHERE gallery_item_id = ?`,
     [type, gallery_id, filepath, title, caption, ord, req.params.id],
     function (err, result) {
+      console.log(ord);
       console.log(err);
       if (err) {
         res.status(400).json({ error: res.message });

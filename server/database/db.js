@@ -45,6 +45,7 @@ let db = new sqlite3.Database(DBSOURCE, err => {
                 page_id INTEGER, 
                 type text,
                 value text,
+                ord INTEGER
                 CONSTRAINT content_id_unique UNIQUE (content_id)
             )`,
       err => {
@@ -54,7 +55,7 @@ let db = new sqlite3.Database(DBSOURCE, err => {
         } else {
           // Table just created, creating some rows
           var insert =
-            'INSERT INTO contents (page_id,type,value) VALUES (?,?,?)';
+            'INSERT INTO contents (page_id,type,value, ord) VALUES (?,?,?,?)';
           db.run(insert, [
             1,
             'html',

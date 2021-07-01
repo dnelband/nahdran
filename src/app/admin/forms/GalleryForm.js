@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import { SRLWrapper } from 'simple-react-lightbox';
 import GalleryItemForm from './GalleryItemForm';
@@ -6,11 +6,9 @@ import TextEditor from '../../partials/TextEditor';
 
 function GalleryForm(props) {
   const [gallery, setGallery] = useState();
-
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [galleryItems, setGalleryItems] = useState();
-
   const [showAddGalelryItemForm, setShowAddGalleryItemForm] = useState(false);
 
   useEffect(() => {
@@ -116,5 +114,20 @@ function GalleryForm(props) {
     </div>
   );
 }
+
+// Hook use Previous
+export const usePrevious = value => {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+};
 
 export default GalleryForm;

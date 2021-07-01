@@ -22,7 +22,8 @@ function Gallery(props) {
   const [sliderPosition, setSliderPosition] = useState(0);
   const [stopAutoSlide, setStopAutoSlide] = useState(false);
   const [imgHeight, setImgHeight] = useState();
-
+  const [loading, setLoading] = useState(false);
+  console.log(loading);
   let mySliderInterval;
 
   useEffect(() => {
@@ -252,6 +253,7 @@ function GalleryItem(props) {
       className="gallery-item-container"
       style={{ height: props.itemWidth / 1.6 + 'px' }}
     >
+      <div className="ripple"></div>
       <a href={__dirname + gi.filepath}>{itemDisplay}</a>
     </div>
   );

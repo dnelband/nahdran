@@ -10,7 +10,10 @@ function GalleryItemForm(props) {
   const [thumbnail, setThumbnail] = useState(gi ? gi.thumbnail : '');
   const [type, setType] = useState(gi ? gi.type : '');
   const [ord, setOrd] = useState(gi ? gi.ord : 0);
-  console.log(ord);
+  const [showUploader, setShowUploader] = useState(
+    props.type === 'create' ? true : false
+  );
+  console.log(showUploader);
 
   function onSubmitClick() {
     const newGalleryItem = {
@@ -22,7 +25,6 @@ function GalleryItemForm(props) {
       thumbnail,
       ord: parseInt(ord),
     };
-    console.log(newGalleryItem);
     let ajaxMethod = props.type === 'edit' ? 'PUT' : 'POST';
     console.log(ajaxMethod);
     $.ajax({
@@ -31,6 +33,7 @@ function GalleryItemForm(props) {
       method: ajaxMethod,
       data: newGalleryItem,
     }).done(function (res) {
+      console.log(res);
       props.onSubmit();
     });
   }
@@ -49,6 +52,7 @@ function GalleryItemForm(props) {
     setFilePath(data.path);
     setThumbnail(data.thumbnail);
     setType(data.type);
+    setShowUploader(false);
   }
 
   let galleryItemDisplay;
@@ -67,6 +71,17 @@ function GalleryItemForm(props) {
         </video>
       );
     }
+  }
+
+  let uploaderDisplay;
+  if (showUploader === true) {
+    uploaderDisplay = (
+      <MyDropzone image={__dirname + filepath} onFinishUpload={onSetFile} />
+    );
+  } else {
+    uploaderDisplay = (
+      <div className="eight wide column">{galleryItemDisplay}</div>
+    );
   }
 
   return (
@@ -95,10 +110,7 @@ function GalleryItemForm(props) {
             type="number"
           />
         </div>
-        <div className="eight wide column">
-          {galleryItemDisplay}
-          <MyDropzone image={__dirname + filepath} onFinishUpload={onSetFile} />
-        </div>
+        <div> {uploaderDisplay}</div>
       </div>
       <button onClick={onSubmitClick}>{props.type} gallery item</button>
       {gi ? <button onClick={deleteGalleryItem}>delete {gi.type}</button> : ''}
