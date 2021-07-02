@@ -61,7 +61,7 @@ function MyDropzone(props) {
     if (uploadSuccess === false) {
       uploadButtonDisplay = <button onClick={uploadFile}>Upload img</button>;
     } else {
-      uploadButtonDisplay = <i class="check icon"></i>;
+      uploadButtonDisplay = <i className="check icon"></i>;
     }
   }
 

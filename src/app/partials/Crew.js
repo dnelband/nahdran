@@ -53,7 +53,7 @@ function Crew(props) {
           width="16"
           height="16"
           fill="currentColor"
-          class="bi bi-chevron-double-down"
+          className="bi bi-chevron-double-down"
           viewBox="0 0 16 10"
         >
           <path
@@ -76,7 +76,7 @@ function Crew(props) {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-chevron-double-up"
+            className="bi bi-chevron-double-up"
             viewBox="0 0 16 10"
           >
             <path

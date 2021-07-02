@@ -1,24 +1,6 @@
-import { use } from 'passport';
 import { useEffect, useState } from 'react';
 import Content from './partials/Content';
 import './style/page.css';
-
-// #1 in a useEffect method (with no vars in the second argument), fetch the page we need using the props.path variable,
-//    with this url `/db/pages/${props.path}`
-// #2 parse the result to JSON (JSON.parse(result)[0], we use the [0] because the result is an array with a single object),
-//    then assign it to a state variable called "page" ( const [ page, setPage ] = useState();)
-// #3 use the paramater page.background_image to set the background image style property of the main <div></div> container
-//    HINT: create a pageStyle = {backgroundImage:`url(${page.background_image})`} object, and pass it to the main div using the style={pageStyle} tag
-// #4 create an inner container div to contain the content, since we dont want the content of the page (text, gallery etc)
-//    to strech the whole width of a page in wide screens ( use the "ui container" css class provided by semantic ui, which we use in this project)
-// #5 in a useEffect method, fetch the contents of the page using the page.page_id property ( can only be done once the state variable "page" is defined)
-//    with the url `/db/contentsbypage/${page.page_id}`
-// #6 parse the result to JSON (JSON.parse(result)), the assign it to a new state variable called "contents" , assume it to be an array!
-//    even though most pages will just have one "contents" item, we still need to account for the posibility of multiple "contents" per page
-// #7 render the contents using the map function - contents.map((ct,index) =>(<div>code...</div>))
-//    at first just render out the ct.type and the ct.value
-// #8 create different components for each content type -> HomePage, Gallery, ContactForm, News, Crew, HTML
-// EXAMPLE FOR STEPS 1 - 4 AT BOTTOM OF THE PAGE
 
 function Page(props) {
   const [page, setPage] = useState();
@@ -27,6 +9,9 @@ function Page(props) {
     window.innerHeight * 1.33 < window.innerWidth ? 'max-width' : 'max-height';
   const [bgClass, setBgClass] = useState(initBgClass);
   const [fullBgLoaded, setFullBgLoaded] = useState(false);
+  const [fullBgHeight, setFullBgHeight] = useState(null);
+  const [fullBgImageBottomAdjustment, setFullBgImageBottomAdjustment ] = useState(null);
+  const [fullBgOpcaity, setFullBgOpcaity ] = useState(0);
 
   useEffect(() => {
     getPage();
@@ -34,20 +19,27 @@ function Page(props) {
   }, []);
 
   function updateBgClass() {
-    const initBgClass =
-      window.innerHeight * 1.33 < window.innerWidth
-        ? 'max-width'
-        : 'max-height';
+    let initBgClass, initFullBgImageBottomAdjustment;
+    if (window.innerHeight * 1.33 < window.innerWidth){
+      initBgClass =  'max-width';
+      if (fullBgHeight !== null) initFullBgImageBottomAdjustment = fullBgHeight - window.innerHeight - 45
+    } else initBgClass = 'max-height'; 
     setBgClass(initBgClass);
+    if (initFullBgImageBottomAdjustment) setFullBgImageBottomAdjustment(initFullBgImageBottomAdjustment);
   }
-
-  // add a dynamic class to img element, a state var
-  // if window.innerhegit is bigger than window.innerwidth then the bg img should have have max height and no max width
-  // if window.innerwidth is bigger than window.innerheight then the bg img should have have max width and no max height
 
   useEffect(() => {
     if (page) getContent();
   }, [page]);
+
+  useEffect(() => {
+    if (fullBgOpcaity > 0 && fullBgOpcaity < 1) {
+      setTimeout(() => {
+        const newFullBgopcaity = fullBgOpcaity + 0.1;
+        setFullBgOpcaity(newFullBgopcaity);
+      }, 10);
+    }
+  },[fullBgOpcaity])
 
   function getPage() {
     fetch(`/db/pages/${props.path}`)
@@ -67,6 +59,18 @@ function Page(props) {
       });
   }
 
+  function onFinishThumbBGLoad(e){
+    if (window.innerHeight * 1.33 < window.innerWidth){
+      setFullBgHeight(e.target.offsetHeight);
+      setFullBgImageBottomAdjustment(e.target.offsetHeight - window.innerHeight - 45);
+    }
+  }
+
+  function onFinishFullBgLoad(){
+    setFullBgLoaded(true);
+    setFullBgOpcaity(0.1);
+  }
+
   let contentDisplay;
   if (content) {
     contentDisplay = content.map((ct, i) => (
@@ -75,9 +79,13 @@ function Page(props) {
   }
 
   let thumbnailSrc;
-  if (page) {
-    thumbnailSrc = 'thumbnails/' + page.background_image.split('/')[1];
-  }
+  if (page) thumbnailSrc = 'thumbnails/' + page.background_image.split('/')[1];
+
+  let fullBgImageStyle = {opacity:fullBgOpcaity}
+  if (fullBgImageBottomAdjustment !== null) fullBgImageStyle.bottom = "-" + fullBgImageBottomAdjustment + "px";
+
+  let thumbBgImageStyle = {}
+  if (fullBgImageBottomAdjustment !== null) thumbBgImageStyle.bottom = "-" + fullBgImageBottomAdjustment + "px";
 
   return (
     <div className="page" id={props.path}>
@@ -85,6 +93,8 @@ function Page(props) {
         <img
           className={'background-img ' + bgClass + ' small-bg'}
           src={page ? thumbnailSrc : ''}
+          style={thumbBgImageStyle}
+          onLoad={e => onFinishThumbBGLoad(e)}
         />
         <img
           className={
@@ -93,8 +103,9 @@ function Page(props) {
             ' full-bg' +
             (fullBgLoaded === true ? ' visible' : '')
           }
+          style={fullBgImageStyle}
           src={page ? page.background_image : ''}
-          onLoad={() => setFullBgLoaded(true)}
+          onLoad={() => onFinishFullBgLoad()}
         />
         <div
           className={
@@ -107,29 +118,5 @@ function Page(props) {
     </div>
   );
 }
-
-// EXAMPLE FOR STEPS 1 - 4
-// const [ page, setPage ] = useState();
-// useEffect(() => {
-//     fetch(`/db/pages/${props.path}`).then(res => res.text()).then(res => {
-//         setPage(JSON.parse(res)[0])
-//     })
-// },[]);
-
-// let titleDisplay,
-//     pageStyle;
-// if (page){
-//     titleDisplay = <h1>{page.title}</h1>
-//     pageStyle = {backgroundImage:`url(${page.background_image})`}
-// }
-
-// return (
-//     <div style={pageStyle} className="page">
-//         <div className="ui container">
-//             {titleDisplay}
-//         </div>
-//     </div>
-// )
-// END EXAMPLE
 
 export default Page;
