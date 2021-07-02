@@ -22,9 +22,9 @@ function Gallery(props) {
   const [sliderPosition, setSliderPosition] = useState(0);
   const [stopAutoSlide, setStopAutoSlide] = useState(false);
   const [imgHeight, setImgHeight] = useState();
-  const [loading, setLoading] = useState(false);
-  console.log(loading);
   let mySliderInterval;
+  const [loading, setLoading] = useState(true);
+  console.log(loading);
 
   useEffect(() => {
     getGalleryContent();
@@ -64,6 +64,7 @@ function Gallery(props) {
       .then(res => {
         const result = JSON.parse(res);
         setGalleryItems(result);
+        setLoading(false);
       });
   }
 
@@ -132,6 +133,15 @@ function Gallery(props) {
     );
   }
 
+  let displayRipple;
+  if (loading === true) {
+    displayRipple = (
+      <div className="ripple-container">
+        <div className="ripple"></div>
+      </div>
+    );
+  }
+
   let maxSliderPosition =
     0 - (galleryItems.length - numItemDisplay) * itemWidth + itemWidth;
 
@@ -144,6 +154,8 @@ function Gallery(props) {
       showThumbnails: false,
     },
   };
+
+  // make the arrows g
 
   return (
     <div>
@@ -198,6 +210,7 @@ function Gallery(props) {
         className="slider-container"
         style={{ width: sliderWidth }}
       >
+        {displayRipple}
         <div
           className="slider"
           style={{
@@ -253,7 +266,6 @@ function GalleryItem(props) {
       className="gallery-item-container"
       style={{ height: props.itemWidth / 1.6 + 'px' }}
     >
-      <div className="ripple"></div>
       <a href={__dirname + gi.filepath}>{itemDisplay}</a>
     </div>
   );
