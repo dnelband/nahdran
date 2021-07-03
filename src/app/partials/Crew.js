@@ -47,7 +47,7 @@ function Crew(props) {
 
     let readMoreButton = (
       <React.Fragment>
-        Read more
+        {' Mehr Lesen'}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -70,7 +70,7 @@ function Crew(props) {
     if (readMore === true) {
       readMoreButton = (
         <React.Fragment>
-          Read less
+          {' Weniger Lesen'}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

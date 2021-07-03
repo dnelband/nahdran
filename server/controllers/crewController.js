@@ -44,8 +44,8 @@ exports.createCrewMember = (req, res) => {
 };
 
 exports.updateCrewMember = (req, res) => {
+  console.log(req.params.id);
   const { name, job, type, picture, about, ord } = req.body;
-  console.log(ord);
   db.run(
     `UPDATE crew SET 
           name = COALESCE(?,name),
@@ -57,6 +57,7 @@ exports.updateCrewMember = (req, res) => {
           WHERE crew_id = ?`,
     [name, job, type, picture, about, ord, req.params.id],
     function (err, result) {
+      console.log(result);
       console.log(err);
       if (err) {
         res.status(400).json({ error: res.message });
