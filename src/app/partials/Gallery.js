@@ -7,6 +7,7 @@ function Gallery(props) {
   const [galleryContent, setGalleryContent] = useState();
   const [galleryItems, setGalleryItems] = useState([]);
   const contentContainerWidth = document.getElementsByClassName('content-container')[0].offsetWidth - 80;
+
   const [sliderWidth, setSliderWidth] = useState(contentContainerWidth);
   let initNumItemDisplay = 3;
   if ((sliderWidth / initNumItemDisplay) < 300) {
@@ -29,6 +30,7 @@ function Gallery(props) {
     getGalleryContent();
     getGalleryItems();
     window.addEventListener('resize', updateDimensions);
+    document.getElementsByClassName('content-container')[0].addEventListener('resize', updateDimensions)
   }, []);
 
   useEffect(() => {
