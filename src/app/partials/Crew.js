@@ -47,13 +47,13 @@ function Crew(props) {
 
     let readMoreButton = (
       <React.Fragment>
-        Read more
+        {' Mehr Lesen'}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
           fill="currentColor"
-          class="bi bi-chevron-double-down"
+          className="bi bi-chevron-double-down"
           viewBox="0 0 16 10"
         >
           <path
@@ -70,13 +70,13 @@ function Crew(props) {
     if (readMore === true) {
       readMoreButton = (
         <React.Fragment>
-          Read less
+          {' Weniger Lesen'}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-chevron-double-up"
+            className="bi bi-chevron-double-up"
             viewBox="0 0 16 10"
           >
             <path

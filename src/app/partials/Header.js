@@ -58,7 +58,7 @@ function Header(props) {
           width="30"
           height="30"
           fill="currentColor"
-          class="bi bi-list"
+          className="bi bi-list"
           viewBox="0 0 16 10"
         >
           <path

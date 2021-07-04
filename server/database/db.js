@@ -199,7 +199,7 @@ let db = new sqlite3.Database(DBSOURCE, err => {
                 type text,
                 picture text,
                 about text,
-                order INTEGER,
+                ord INTEGER,
                 CONSTRAINT crew_id_unique UNIQUE (crew_id)
             )`,
       err => {
@@ -209,7 +209,7 @@ let db = new sqlite3.Database(DBSOURCE, err => {
         } else {
           // Table just created, creating some rows
           var insert =
-            'INSERT INTO crew (name, job, picture, about, order) VALUES (?,?,?,?,?)';
+            'INSERT INTO crew (name, job, picture, about, ord) VALUES (?,?,?,?,?)';
           db.run(insert, [
             'Elisa Nelvand',
             'Director',

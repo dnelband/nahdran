@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Component, useEffect, useState } from 'react';
 import { SRLWrapper } from 'simple-react-lightbox';
 import './../style/gallery.css';
 import $ from 'jquery';
@@ -6,13 +6,13 @@ import $ from 'jquery';
 function Gallery(props) {
   const [galleryContent, setGalleryContent] = useState();
   const [galleryItems, setGalleryItems] = useState([]);
-  const [sliderWidth, setSliderWidth] = useState(
-    window.innerWidth * 0.95 - 100.1
-  );
+  const contentContainerWidth = document.getElementsByClassName('content-container')[0].offsetWidth - 80;
+
+  const [sliderWidth, setSliderWidth] = useState(contentContainerWidth);
   let initNumItemDisplay = 3;
-  if (sliderWidth / initNumItemDisplay <= 300) {
+  if ((sliderWidth / initNumItemDisplay) < 300) {
     initNumItemDisplay = 2;
-    if (sliderWidth / initNumItemDisplay <= 300) {
+    if ((sliderWidth / initNumItemDisplay) < 300) {
       initNumItemDisplay = 1;
     }
   }
@@ -24,12 +24,13 @@ function Gallery(props) {
   const [imgHeight, setImgHeight] = useState();
   let mySliderInterval;
   const [loading, setLoading] = useState(true);
-  console.log(loading);
 
+  
   useEffect(() => {
     getGalleryContent();
     getGalleryItems();
     window.addEventListener('resize', updateDimensions);
+    document.getElementsByClassName('content-container')[0].addEventListener('resize', updateDimensions)
   }, []);
 
   useEffect(() => {
@@ -69,11 +70,11 @@ function Gallery(props) {
   }
 
   function updateDimensions() {
-    const newSliderWidth = window.innerWidth * 0.95 - 100.1;
+    const newSliderWidth = document.getElementsByClassName('content-container')[0].offsetWidth - 80;
     let initNumItemDisplay = 3;
-    if (newSliderWidth / initNumItemDisplay <= 300) {
+    if ((newSliderWidth / initNumItemDisplay) < 300) {
       initNumItemDisplay = 2;
-      if (newSliderWidth / initNumItemDisplay <= 300) {
+      if ((newSliderWidth / initNumItemDisplay) < 300) {
         initNumItemDisplay = 1;
       }
     }
