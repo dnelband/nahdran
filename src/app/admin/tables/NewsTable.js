@@ -8,7 +8,6 @@ function NewsTable() {
     fetch('/db/news/')
       .then(res => res.text())
       .then(res => {
-        console.log(JSON.parse(res));
         setNews(JSON.parse(res));
       });
   }, []);

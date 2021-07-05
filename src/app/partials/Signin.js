@@ -7,7 +7,6 @@ function UserSignin(props) {
   const [password, setPassword] = useState('');
   
   function onSignin() {
-    console.log('on signin')
     $.ajax({
       url:'/db/signin/',
       type:'POST',

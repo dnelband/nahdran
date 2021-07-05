@@ -15,7 +15,6 @@ function CrewForm(props) {
       fetch('/db/crew/' + props.itemId)
         .then(res => res.text())
         .then(res => {
-          console.log(res);
           setName(JSON.parse(res)[0].name);
           setJob(JSON.parse(res)[0].job);
           setType(JSON.parse(res)[0].type);
@@ -36,7 +35,6 @@ function CrewForm(props) {
       ord: parseInt(ord),
     };
 
-    console.log(newCrewMember);
     let ajaxMethod = 'POST';
     if (props.type === 'edit') ajaxMethod = 'PUT';
 

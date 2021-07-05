@@ -16,7 +16,6 @@ function GalleryForm(props) {
   }, []);
 
   function getGallery() {
-    console.log('hello');
     fetch('/db/galleries/' + props.galleryId)
       .then(res => res.text())
       .then(res => {
@@ -46,8 +45,6 @@ function GalleryForm(props) {
       method: ajaxMethod,
       data: newGallery,
     }).done(function (res) {
-      console.log('res');
-      console.log(res);
       if (props.type === 'create') props.onCreateGallery(res.id);
       else window.location.href = '/admin/edit/page/' + props.pageId;
     });

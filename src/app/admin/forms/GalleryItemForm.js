@@ -13,7 +13,6 @@ function GalleryItemForm(props) {
   const [showUploader, setShowUploader] = useState(
     props.type === 'create' ? true : false
   );
-  console.log(showUploader);
 
   function onSubmitClick() {
     const newGalleryItem = {
@@ -26,14 +25,14 @@ function GalleryItemForm(props) {
       ord: parseInt(ord),
     };
     let ajaxMethod = props.type === 'edit' ? 'PUT' : 'POST';
-    console.log(ajaxMethod);
+
     $.ajax({
       url:
         '/db/galleryitems/' + (props.type === 'edit' ? gi.gallery_item_id : ''),
       method: ajaxMethod,
       data: newGalleryItem,
     }).done(function (res) {
-      console.log(res);
+
       props.onSubmit();
     });
   }
@@ -48,7 +47,6 @@ function GalleryItemForm(props) {
   }
 
   function onSetFile(data) {
-    console.log(data);
     setFilePath(data.path);
     setThumbnail(data.thumbnail);
     setType(data.type);

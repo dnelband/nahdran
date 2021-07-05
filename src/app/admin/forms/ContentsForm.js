@@ -31,7 +31,6 @@ function ContentsForm(props) {
       value: value,
       ord: parseInt(ord),
     };
-    console.log(newContent);
     let ajaxMethod = 'POST';
     if (props.type === 'edit') ajaxMethod = 'PUT';
     $.ajax({
@@ -55,7 +54,6 @@ function ContentsForm(props) {
   }
 
   function deleteItem(it, id) {
-    console.log(it, id);
     $.ajax({
       url: '/db/' + it + '/' + id,
       method: 'DELETE',

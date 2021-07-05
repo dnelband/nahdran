@@ -3,7 +3,6 @@ import $ from 'jquery';
 
 function CrewTable() {
   const [crew, setCrew] = useState();
-  console.log(crew);
 
   useEffect(() => {
     fetch('/db/crew/')

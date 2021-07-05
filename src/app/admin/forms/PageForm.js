@@ -16,7 +16,6 @@ function PageForm(props) {
   const [error, setError] = useState('');
   const [showUploader, setShowUploader] = useState(false);
   const previousBg = usePrevious(backgroundImage);
-  console.log(previousBg, 'prevoisBg');
 
   useEffect(() => {
     if (props.type === 'edit') {
@@ -27,7 +26,6 @@ function PageForm(props) {
 
   useEffect(() => {
     if (backgroundImage && previousBg && backgroundImage !== previousBg) {
-      console.log('this should update');
       onSubmitClick();
     }
   }, [backgroundImage]);
@@ -77,7 +75,6 @@ function PageForm(props) {
       show_in_menu: showInMenu,
       ord: order,
     };
-    console.log(newPage);
 
     let ajaxMethod = 'POST';
     if (props.type === 'edit') ajaxMethod = 'PUT';
