@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "../style/text-editor.css";
 
 function TextEditor(props) {
-  const [convertedText, setConvertedText] = useState(
-    props.val ? props.val : ""
-  );
+
+  let initText = props.val ? props.val : "";
+
+  const [convertedText, setConvertedText] = useState(initText);
   useEffect(() => {
     props.onTextEditorUpdate(convertedText);
   }, [convertedText]);

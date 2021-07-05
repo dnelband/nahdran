@@ -94,6 +94,9 @@ function GalleryForm(props) {
     );
   }
 
+  let textEditorDisplay;
+  if (description) textEditorDisplay = <TextEditor val={description} onTextEditorUpdate={setDescription} />
+
   return (
     <div className="ui raised segment gallery-container">
       <div className="header">
@@ -103,7 +106,7 @@ function GalleryForm(props) {
           onChange={e => setTitle(e.target.value)}
           value={title}
         />
-        <TextEditor val={description} onTextEditorUpdate={setDescription} />
+        {textEditorDisplay}
       </div>
       <button onClick={onSubmitClick}>{props.type} gallery</button>
       <hr />
