@@ -11,6 +11,8 @@ function Page(props) {
   const [fullBgLoaded, setFullBgLoaded] = useState(false);
   const [fullBgHeight, setFullBgHeight] = useState(null);
   const [fullBgImageBottomAdjustment, setFullBgImageBottomAdjustment ] = useState(null);
+  const [fullBgImageLeftAdjustment, setFullBgImageLeftAdjustment ] = useState(null);
+
   const [fullBgOpcaity, setFullBgOpcaity ] = useState(0);
 
   useEffect(() => {
@@ -64,6 +66,9 @@ function Page(props) {
       setFullBgHeight(e.target.offsetHeight);
       setFullBgImageBottomAdjustment(e.target.offsetHeight - window.innerHeight - 45);
     }
+    if (e.target.offsetWidth > window.innerWidth){
+      setFullBgImageLeftAdjustment((e.target.offsetWidth - window.innerWidth) / 2);
+    }
   }
 
   function onFinishFullBgLoad(){
@@ -80,12 +85,21 @@ function Page(props) {
 
   let thumbnailSrc;
   if (page) thumbnailSrc = 'thumbnails/' + page.background_image.split('/')[1];
-
   let fullBgImageStyle = {opacity:fullBgOpcaity}
-  if (fullBgImageBottomAdjustment !== null) fullBgImageStyle.bottom = "-" + fullBgImageBottomAdjustment + "px";
-
   let thumbBgImageStyle = {}
-  if (fullBgImageBottomAdjustment !== null) thumbBgImageStyle.bottom = "-" + fullBgImageBottomAdjustment + "px";
+  let bottomAdjustment = 0;
+  if (fullBgImageBottomAdjustment !== null) bottomAdjustment = 0 - fullBgImageBottomAdjustment;
+  if (page && page.background_image_bottom !== null) bottomAdjustment += parseInt(page.background_image_bottom);
+  if (bottomAdjustment){
+    fullBgImageStyle.bottom = bottomAdjustment + "px";
+    thumbBgImageStyle.bottom = bottomAdjustment + "px";
+  }
+  let leftAdjustment = 0;
+  if (fullBgImageLeftAdjustment) leftAdjustment = 0 - fullBgImageLeftAdjustment;
+  if (leftAdjustment){
+    fullBgImageStyle.left = leftAdjustment + "px";
+    thumbBgImageStyle.left = leftAdjustment + "px";    
+  }
 
   return (
     <div className="page" id={props.path}>

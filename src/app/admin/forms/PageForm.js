@@ -9,6 +9,9 @@ function PageForm(props) {
   let defLink = title.split('%20').join('_');
   const [link, setLink] = useState(defLink);
   const [backgroundImage, setBackgroundImage] = useState('');
+  const [backgroundImageLeft, setBackgroundImageLeft] = useState('');
+  const [backgroundImageBottom, setBackgroundImageBottom] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState('');
   const [showInMenu, setShowInMenu] = useState(1);
   const [order, setOrder] = useState(0);
   const [contents, setContents] = useState([]);
@@ -40,6 +43,9 @@ function PageForm(props) {
         setBackgroundImage(page.background_image);
         setShowInMenu(page.show_in_menu);
         setOrder(page.ord);
+        setBackgroundImageBottom(page.background_image_bottom);
+        setBackgroundImageLeft(page.background_image_left);
+        setBackgroundColor(page.background_color);
       });
   }
 
@@ -74,6 +80,9 @@ function PageForm(props) {
       background_image: backgroundImage,
       show_in_menu: showInMenu,
       ord: order,
+      background_image_left:backgroundImageLeft,
+      background_image_bottom:backgroundImageBottom,
+      background_color:backgroundColor
     };
 
     let ajaxMethod = 'POST';
@@ -187,7 +196,6 @@ function PageForm(props) {
               type="text"
             />
           </div>
-
           <div className="form-field">
             <label>Show In Menu:</label>
             <input
@@ -212,6 +220,30 @@ function PageForm(props) {
               value={order}
               onChange={e => setOrder(e.target.value)}
               type="number"
+            />
+          </div>
+          <div className="form-field">
+            <label>BG image bottom</label>
+            <input
+              value={backgroundImageBottom}
+              onChange={e => setBackgroundImageBottom(e.target.value)}
+              type="text"
+            />
+          </div>
+          <div className="form-field">
+            <label>BG image Left</label>
+            <input
+              value={backgroundImageLeft}
+              onChange={e => setBackgroundImageLeft(e.target.value)}
+              type="text"
+            />
+          </div>
+          <div className="form-field">
+            <label>content background color</label>
+            <input
+              value={backgroundColor}
+              onChange={e => setBackgroundColor(e.target.value)}
+              type="text"
             />
           </div>
         </div>

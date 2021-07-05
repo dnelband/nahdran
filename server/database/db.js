@@ -18,6 +18,9 @@ let db = new sqlite3.Database(DBSOURCE, err => {
                 title text UNIQUE, 
                 link text,
                 background_image text, 
+                background_image_bottom text,
+                background_image_left text,
+                background_color text,
                 show_in_menu INTEGER,
                 ord INTEGER,
                 createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -30,10 +33,10 @@ let db = new sqlite3.Database(DBSOURCE, err => {
         } else {
           // Table just created, creating some rows
           var insert =
-            'INSERT INTO pages (title,link,background_image,show_in_menu, ord) VALUES (?,?,?,?,?)';
-          db.run(insert, ['home', 'home', 'pictures/2.jpg', 1, 1]);
-          db.run(insert, ['test', 'test', 'pictures/1.jpg', 1, 2]);
-          db.run(insert, ['with space', 'with_space', 'pictures/3.jpg', 0.3]);
+            'INSERT INTO pages (title,link,background_image,background_image_bottom, background_image_left, background_color, show_in_menu, ord) VALUES (?,?,?,?,?,?,?,?)';
+          // db.run(insert, ['home', 'home', 'pictures/2.jpg', 1, 1]);
+          // db.run(insert, ['test', 'test', 'pictures/1.jpg', 1, 2]);
+          // db.run(insert, ['with space', 'with_space', 'pictures/3.jpg', 0.3]);
         }
       }
     );
