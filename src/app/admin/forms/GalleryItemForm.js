@@ -83,7 +83,7 @@ function GalleryItemForm(props) {
   }
 
   return (
-    <div className="ui segment">
+    <div className="ui segment" style={{backgroundColor:(props.type === "create" ? "lightgray" : "")}}>
       <h4 className="ui header">Gallery Item form</h4>
       <div className="ui grid">
         <div className="gallery-item-form eight wide column">
