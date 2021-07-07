@@ -53,14 +53,12 @@
 }
 .arrow-container #right-arrow {
   right: -30px;
-  box-shadow: -2px 0px 1px rgba(0, 0, 0, 0.5);
 }
 .arrow-container #right-arrow .bi {
   margin-left: -15px;
 }
 .arrow-container #left-arrow {
   left: -30px;
-  box-shadow: -2px 0px 1px rgba(0, 0, 0, 0.5);
 }
 .arrow-container #left-arrow .bi {
   margin-left: -15px;

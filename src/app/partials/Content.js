@@ -22,12 +22,6 @@ function Content(props) {
     contentDisplay = <News></News>;
   } else if (content.type === 'contact') {
     contentDisplay = <ContactForm></ContactForm>;
-  } else if (content.type === 'homepage') {
-    contentDisplay = (
-      <video  autoPlay muted src={__dirname + 'trailer.mp4'} width={'100%'} controls>
-        <source src={__dirname + 'trailer.mp4'} type={'video/mp4'}></source>
-      </video>
-    );
   }
 
   return <div>{contentDisplay}</div>;

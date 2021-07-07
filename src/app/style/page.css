@@ -59,10 +59,10 @@ main,
   opacity: 1;
   height: auto;
   min-height: 50vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.185);
   color: blanchedalmond;
   margin: 0 auto;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1.5px);
   padding: 40px;
   z-index: 0;
   font-size: medium;
@@ -72,6 +72,7 @@ main,
   width: 90vw;
   max-height: 80vh;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .page .background .content-container.visible .title {
   text-transform: uppercase;

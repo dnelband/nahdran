@@ -6,7 +6,7 @@ import './../style/header.css';
 function Header(props) {
   const [menuItems, setMenuItems] = useState();
   const [isMenuIcon, setIsMenuIcon] = useState(
-    window.innerWidth <= 820 ? true : false
+    window.innerWidth <= 971 ? true : false
   );
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -25,7 +25,7 @@ function Header(props) {
   }
 
   function onWindowResize() {
-    setIsMenuIcon(window.innerWidth <= 820 ? true : false);
+    setIsMenuIcon(window.innerWidth <= 971 ? true : false);
   }
 
   let menuItemsDisplay = 'no menu items';

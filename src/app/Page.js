@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Content from './partials/Content';
 import './style/page.css';
+import './style/home.css';
 
 function Page(props) {
   const [page, setPage] = useState();
@@ -10,10 +11,12 @@ function Page(props) {
   const [bgClass, setBgClass] = useState(initBgClass);
   const [fullBgLoaded, setFullBgLoaded] = useState(false);
   const [fullBgHeight, setFullBgHeight] = useState(null);
-  const [fullBgImageBottomAdjustment, setFullBgImageBottomAdjustment ] = useState(null);
-  const [fullBgImageLeftAdjustment, setFullBgImageLeftAdjustment ] = useState(null);
+  const [fullBgImageBottomAdjustment, setFullBgImageBottomAdjustment] =
+    useState(null);
+  const [fullBgImageLeftAdjustment, setFullBgImageLeftAdjustment] =
+    useState(null);
 
-  const [fullBgOpcaity, setFullBgOpcaity ] = useState(0);
+  const [fullBgOpcaity, setFullBgOpcaity] = useState(0);
 
   useEffect(() => {
     getPage();
@@ -22,12 +25,15 @@ function Page(props) {
 
   function updateBgClass() {
     let initBgClass, initFullBgImageBottomAdjustment;
-    if (window.innerHeight * 1.33 < window.innerWidth){
-      initBgClass =  'max-width';
-      if (fullBgHeight !== null) initFullBgImageBottomAdjustment = fullBgHeight - window.innerHeight - 45
-    } else initBgClass = 'max-height'; 
+    if (window.innerHeight * 1.33 < window.innerWidth) {
+      initBgClass = 'max-width';
+      if (fullBgHeight !== null)
+        initFullBgImageBottomAdjustment =
+          fullBgHeight - window.innerHeight - 45;
+    } else initBgClass = 'max-height';
     setBgClass(initBgClass);
-    if (initFullBgImageBottomAdjustment) setFullBgImageBottomAdjustment(initFullBgImageBottomAdjustment);
+    if (initFullBgImageBottomAdjustment)
+      setFullBgImageBottomAdjustment(initFullBgImageBottomAdjustment);
   }
 
   useEffect(() => {
@@ -41,7 +47,7 @@ function Page(props) {
         setFullBgOpcaity(newFullBgopcaity);
       }, 10);
     }
-  },[fullBgOpcaity])
+  }, [fullBgOpcaity]);
 
   function getPage() {
     fetch(`/db/pages/${props.path}`)
@@ -61,17 +67,21 @@ function Page(props) {
       });
   }
 
-  function onFinishThumbBGLoad(e){
-    if (window.innerHeight * 1.33 < window.innerWidth){
+  function onFinishThumbBGLoad(e) {
+    if (window.innerHeight * 1.33 < window.innerWidth) {
       setFullBgHeight(e.target.offsetHeight);
-      setFullBgImageBottomAdjustment(e.target.offsetHeight - window.innerHeight - 45);
+      setFullBgImageBottomAdjustment(
+        e.target.offsetHeight - window.innerHeight - 45
+      );
     }
-    if (e.target.offsetWidth > window.innerWidth){
-      setFullBgImageLeftAdjustment((e.target.offsetWidth - window.innerWidth) / 2);
+    if (e.target.offsetWidth > window.innerWidth) {
+      setFullBgImageLeftAdjustment(
+        (e.target.offsetWidth - window.innerWidth) / 2
+      );
     }
   }
 
-  function onFinishFullBgLoad(){
+  function onFinishFullBgLoad() {
     setFullBgLoaded(true);
     setFullBgOpcaity(0.1);
   }
@@ -85,20 +95,53 @@ function Page(props) {
 
   let thumbnailSrc;
   if (page) thumbnailSrc = 'thumbnails/' + page.background_image.split('/')[1];
-  let fullBgImageStyle = {opacity:fullBgOpcaity}
-  let thumbBgImageStyle = {}
+  let fullBgImageStyle = { opacity: fullBgOpcaity };
+  let thumbBgImageStyle = {};
   let bottomAdjustment = 0;
-  if (fullBgImageBottomAdjustment !== null) bottomAdjustment = 0 - fullBgImageBottomAdjustment;
-  if (page && page.background_image_bottom !== null) bottomAdjustment += parseInt(page.background_image_bottom);
-  if (bottomAdjustment){
-    fullBgImageStyle.bottom = bottomAdjustment + "px";
-    thumbBgImageStyle.bottom = bottomAdjustment + "px";
+  if (fullBgImageBottomAdjustment !== null)
+    bottomAdjustment = 0 - fullBgImageBottomAdjustment;
+  if (page && page.background_image_bottom !== null)
+    bottomAdjustment += parseInt(page.background_image_bottom);
+  if (bottomAdjustment) {
+    fullBgImageStyle.bottom = bottomAdjustment + 'px';
+    thumbBgImageStyle.bottom = bottomAdjustment + 'px';
   }
   let leftAdjustment = 0;
   if (fullBgImageLeftAdjustment) leftAdjustment = 0 - fullBgImageLeftAdjustment;
-  if (leftAdjustment){
-    fullBgImageStyle.left = leftAdjustment + "px";
-    thumbBgImageStyle.left = leftAdjustment + "px";    
+  if (leftAdjustment) {
+    fullBgImageStyle.left = leftAdjustment + 'px';
+    thumbBgImageStyle.left = leftAdjustment + 'px';
+  }
+
+  let contentContainerDisplay = (
+    <div
+      className={
+        'content-container' + (fullBgLoaded === true ? ' visible' : '')
+      }
+    >
+      <div className="content-display">{contentDisplay}</div>
+    </div>
+  );
+  if (props.path === 'home') {
+    contentContainerDisplay = (
+      <div className="home-page-container">
+        <div className="video-container">
+          <video
+            autoPlay
+            muted
+            src={__dirname + 'trailer.mp4'}
+            width={'100%'}
+            controls
+          >
+            <source src={__dirname + 'trailer.mp4'} type={'video/mp4'}></source>
+          </video>
+        </div>
+        <div className="title-container">
+          <img src={__dirname + 'title.png'} />
+          {contentDisplay}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -121,13 +164,7 @@ function Page(props) {
           src={page ? page.background_image : ''}
           onLoad={() => onFinishFullBgLoad()}
         />
-        <div
-          className={
-            'content-container' + (fullBgLoaded === true ? ' visible' : '')
-          }
-        >
-          <div className="content-display">{contentDisplay}</div>
-        </div>
+        {contentContainerDisplay}
       </div>
     </div>
   );
