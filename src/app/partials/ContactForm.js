@@ -118,7 +118,7 @@ function ContactForm(props) {
         {emailErrorDisplay}
       </div>
       <div className="msg">
-        <div>Dein Nachricht</div>
+        <div>Deine Nachricht</div>
         <textarea
           id="textarea"
           className="inputarea"

@@ -49,10 +49,10 @@ function MessagesTableItem(props){
 
     function onDeleteMessageClick(){
         $.ajax({
-            url:"/db/news/" + m.crew_id,
+            url:"/db/messages/" + m.msg_id,
             method:"DELETE"
         }).done(function(res) {
-            window.location.href =  "/admin/crew/";
+            window.location.href =  "/admin/messages/";
         })
     }
 
