@@ -7,6 +7,16 @@ main,
 .App {
   padding-top: 45px;
 }
+.page {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-position-y: top;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 .page .background {
   position: fixed;
   top: 45px;
@@ -52,10 +62,10 @@ main,
 .page .background .background-img.max-width {
   max-width: 100%;
 }
-.page .background .content-container {
+.page .content-container {
   opacity: 0;
 }
-.page .background .content-container.visible {
+.page .content-container.visible {
   opacity: 1;
   height: auto;
   min-height: 50vh;
@@ -74,9 +84,9 @@ main,
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.page .background .content-container.visible .title {
+.page .content-container.visible .title {
   text-transform: uppercase;
 }
-.page .background .content-container.visible .content-value {
+.page .content-container.visible .content-value {
   line-height: normal;
 }

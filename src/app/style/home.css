@@ -8,8 +8,7 @@
   font-size: medium;
   top: 10vh;
   position: relative;
-  max-width: 1069px;
-  width: 90vw;
+  width: 85vw;
   max-height: 80vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
