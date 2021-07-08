@@ -103,8 +103,9 @@ function Page(props) {
 
   let pageStyle = {}
   if (page && page.background_image){
-    let bgPosY = (window.innerHeight * 1.33 < window.innerWidth) && page.background_image_bottom ?  '-' + page.background_image_bottom + "px" : 'top'; 
-    let bgPosX = (window.innerHeight * 1.33 > window.innerWidth) && page.background_image_left ? page.background_image_left : 'center'; 
+    let screenRatio =  1.777777777778;
+    let bgPosY = (window.innerHeight * screenRatio < window.innerWidth) && page.background_image_bottom ?  '-' + page.background_image_bottom + "px" : 'top'; 
+    let bgPosX = (window.innerHeight * screenRatio > window.innerWidth) && page.background_image_left ? page.background_image_left : 'center'; 
     pageStyle = {
       backgroundImage:`url('${page.background_image}')`,
       backgroundPositionY:bgPosY,

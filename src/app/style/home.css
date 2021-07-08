@@ -11,24 +11,27 @@
   width: 85vw;
   max-height: 80vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  gap: 2vw;
+  grid-template-columns: 30vw 1fr;
 }
 .home-page-container .title-container {
-  width: 100%;
+  width: auto;
   height: 134px;
-  background: rgba(128, 86, 86, 0.5);
+  margin-top: 17vh;
+  /* background: rgba(128,86,86,.5); */
+  padding-left: 20px;
 }
 .home-page-container .title-container img {
-  margin: 0 auto;
   display: block;
 }
 .home-page-container .title-container p {
-  text-align: center;
-  color: blanchedalmond;
+  text-align: left;
+  color: #ffebcd;
   margin: 0 2px;
+  margin-left: 15px;
 }
 .home-page-container .video-container video {
-  margin-top: 15vh;
+  margin-top: 7vh;
   width: 30vw;
-  box-shadow: #ffffff 0px 0px 0px 3px;
+  box-shadow: 0 0 0 3px #fff;
 }
