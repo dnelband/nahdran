@@ -23,6 +23,7 @@
 }
 .home-page-container .title-container img {
   display: block;
+  max-width: 45vw;
 }
 .home-page-container .title-container p {
   text-align: left;

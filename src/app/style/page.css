@@ -17,56 +17,7 @@ main,
   -o-background-size: cover;
   background-size: cover;
 }
-.page .background {
-  position: fixed;
-  top: 45px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  width: calc(100% + 20px);
-}
-.page .background .background-img {
-  position: fixed;
-  top: 45px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  min-width: 50%;
-  min-height: 50%;
-}
-.page .background .background-img.full-bg {
-  opacity: 0;
-}
-.page .background .background-img.full-bg.visible {
-  opacity: 1;
-}
-.page .background .background-img.small-bg {
-  filter: blur(2px);
-  min-width: 100%;
-  min-height: 100%;
-}
-.page .background .background-img.small-bg.max-height {
-  height: 200%;
-  width: auto;
-}
-.page .background .background-img.small-bg.max-width {
-  width: 200%;
-  height: auto;
-}
-.page .background .background-img.max-height {
-  max-height: 100%;
-  top: 90px;
-}
-.page .background .background-img.max-width {
-  max-width: 100%;
-}
 .page .content-container {
-  opacity: 0;
-}
-.page .content-container.visible {
-  opacity: 1;
   height: auto;
   min-height: 50vh;
   background: rgba(0, 0, 0, 0.185);
@@ -84,9 +35,12 @@ main,
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.page .content-container.visible .title {
+.page .content-container .title {
   text-transform: uppercase;
 }
-.page .content-container.visible .content-value {
+.page .content-container .content-value {
   line-height: normal;
+}
+.page.content-left .content-container {
+  margin: 0 0 0 5vw !important;
 }

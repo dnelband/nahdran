@@ -19,66 +19,7 @@ main,
   -o-background-size: cover;
   background-size: cover;
 
-  .background {
-    position: fixed;
-    top: 45px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    width: calc(100% + 20px);
-
-    .background-img {
-      position: fixed;
-      top: 45px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      min-width: 50%;
-      min-height: 50%;
-
-      &.full-bg {
-        opacity: 0;
-        //transition: 500ms;
-        &.visible {
-          opacity: 1;
-        }
-      }
-
-      &.small-bg {
-        filter: blur(2px);
-        min-width: 100%;
-        min-height: 100%;
-        &.max-height {
-          height: 200%;
-          width: auto;
-        }
-        &.max-width {
-          width: 200%;
-          height: auto;
-        }
-      }
-
-      &.max-height {
-        max-height: 100%;
-        top: 90px;
-      }
-      &.max-width {
-        max-width: 100%;
-      }
-    }
-
-  }
-
-
-
   .content-container {
-    opacity: 0;
-  }
-  .content-container.visible {
-    opacity: 1;
-    // transition: 500ms;
     height: auto;
     min-height: 50vh;
     background: rgba(0, 0, 0, 0.185);
@@ -102,6 +43,12 @@ main,
 
     .content-value {
       line-height: normal;
+    }
+  }
+
+  &.content-left {
+    .content-container {
+      margin: 0 0 0 5vw !important;
     }
   }
 
