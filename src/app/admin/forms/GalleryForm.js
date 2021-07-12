@@ -3,6 +3,7 @@ import $ from 'jquery';
 import { SRLWrapper } from 'simple-react-lightbox';
 import GalleryItemForm from './GalleryItemForm';
 import TextEditor from '../../partials/TextEditor';
+import '../../style/adminGallery.css';
 
 function GalleryForm(props) {
   const [gallery, setGallery] = useState();
@@ -79,37 +80,48 @@ function GalleryForm(props) {
 
     galleryDisplay = (
       <div className="gallery-items-container">
-        <button
+        <a
+          className="ui green button labeled icon"
           onClick={() =>
             setShowAddGalleryItemForm(
               showAddGalelryItemForm === true ? false : true
             )
           }
         >
-          + add gallery item
-        </button>
+          <i className="plus icon"></i>
+          Bild hochladen
+        </a>
         {addGalelryItemForm}
-        <SRLWrapper>{galleryItemsDisplay}</SRLWrapper>
+        <SRLWrapper>
+          <div className="gallery-images">{galleryItemsDisplay}</div>
+        </SRLWrapper>
       </div>
     );
   }
 
   let textEditorDisplay;
-  if (description) textEditorDisplay = <TextEditor val={description} onTextEditorUpdate={setDescription} />
+  if (description)
+    textEditorDisplay = (
+      <TextEditor val={description} onTextEditorUpdate={setDescription} />
+    );
 
   return (
     <div className="ui raised segment gallery-container">
+      <h3>Text bearbeiten:</h3>
       <div className="header">
-        <input
+        {/* <input
           placeholder="Gallery Title..."
           type="text"
           onChange={e => setTitle(e.target.value)}
           value={title}
-        />
+        /> */}
         {textEditorDisplay}
       </div>
-      <button onClick={onSubmitClick}>{props.type} gallery</button>
+      <a className="ui primary button" onClick={onSubmitClick}>
+        Aktualisieren
+      </a>
       <hr />
+      <h3>Bilder bearbeiten:</h3>
       {galleryDisplay}
     </div>
   );

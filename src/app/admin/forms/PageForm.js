@@ -9,10 +9,6 @@ function PageForm(props) {
   let defLink = title.split('%20').join('_');
   const [link, setLink] = useState(defLink);
   const [backgroundImage, setBackgroundImage] = useState('');
-  const [backgroundImageLeft, setBackgroundImageLeft] = useState('');
-  const [backgroundImageBottom, setBackgroundImageBottom] = useState('');
-  const [backgroundColor, setBackgroundColor] = useState('');
-  const [showInMenu, setShowInMenu] = useState(1);
   const [order, setOrder] = useState(0);
   const [contents, setContents] = useState([]);
   const [showContentsForm, setShowContentsForm] = useState(false);
@@ -41,11 +37,7 @@ function PageForm(props) {
         setTitle(page.title);
         setLink(page.link);
         setBackgroundImage(page.background_image);
-        setShowInMenu(page.show_in_menu);
         setOrder(page.ord);
-        setBackgroundImageBottom(page.background_image_bottom);
-        setBackgroundImageLeft(page.background_image_left);
-        setBackgroundColor(page.background_color);
       });
   }
 
@@ -63,10 +55,10 @@ function PageForm(props) {
     setLink(newVal);
   }
 
-  function onSetLink(val) {
-    let newVal = val.split(' ').join('_');
-    setLink(newVal);
-  }
+  // function onSetLink(val) {
+  //   let newVal = val.split(' ').join('_');
+  //   setLink(newVal);
+  // }
 
   function onSetBackgroundImage(data) {
     setBackgroundImage(data.path);
@@ -78,11 +70,7 @@ function PageForm(props) {
       title,
       link,
       background_image: backgroundImage,
-      show_in_menu: showInMenu,
       ord: order,
-      background_image_left:backgroundImageLeft,
-      background_image_bottom:backgroundImageBottom,
-      background_color:backgroundColor
     };
 
     let ajaxMethod = 'POST';
@@ -104,15 +92,15 @@ function PageForm(props) {
 
   let pageContentsDisplay;
   if (props.type === 'edit') {
-    const addContentsButtonDisplay = (
-      <button
-        onClick={() =>
-          setShowContentsForm(showContentsForm === true ? false : true)
-        }
-      >
-        Add Contents
-      </button>
-    );
+    // const addContentsButtonDisplay = (
+    //   <button
+    //     onClick={() =>
+    //       setShowContentsForm(showContentsForm === true ? false : true)
+    //     }
+    //   >
+    //     Add Contents
+    //   </button>
+    // );
 
     let contentsFormDisplay;
     if (showContentsForm === true)
@@ -126,25 +114,28 @@ function PageForm(props) {
 
     let contentsDisplay;
     if (contents && contents.length > 0) {
-      contentsDisplay = contents.map((ct, index) => (
-        <ContentsForm
-          type={'edit'}
-          pageId={props.itemId}
-          onUpdateItem={props.onUpdateItem}
-          key={index}
-          contents={ct}
-        />
+      let filteredArray = contents.filter(
+        ct => ct.type === 'gallery' || ct.type === 'html'
+      );
+      console.log(filteredArray);
+      contentsDisplay = filteredArray.map((ct, index) => (
+        <React.Fragment>
+          <ContentsForm
+            type={'edit'}
+            pageId={props.itemId}
+            onUpdateItem={props.onUpdateItem}
+            key={index}
+            contents={ct}
+          />
+          <hr />
+        </React.Fragment>
       ));
     } else contentsDisplay = <div>no contents</div>;
 
     pageContentsDisplay = (
-      <div className="ui segment">
-        <h2>Page Contents:</h2>
-        <div className="contents-container">
-          {addContentsButtonDisplay}
-          {contentsFormDisplay}
-          {contentsDisplay}
-        </div>
+      <div className="contents-container">
+        {contentsFormDisplay}
+        {contentsDisplay}
       </div>
     );
   }
@@ -159,100 +150,59 @@ function PageForm(props) {
     );
   } else {
     uploaderDisplay = (
-      <img width="100" height="auto" src={__dirname + backgroundImage} />
+      <img width="100%" height="auto" src={__dirname + backgroundImage} />
+    );
+  }
+
+  let uploaderButtonDisplay;
+  if (showUploader === false) {
+    uploaderButtonDisplay = (
+      <a onClick={() => setShowUploader(showUploader === true ? false : true)}>
+        <i className="redo icon"></i>
+        Hintergrund ändern
+      </a>
     );
   }
 
   return (
     <div className="page-form">
-      <div className="ui grid">
-        <div className="four wide column">
-          <div className="form-field">
-            <i
-              className="plus icon"
-              onClick={() =>
-                setShowUploader(showUploader === true ? false : true)
-              }
-            ></i>
-            {uploaderDisplay}
+      <div className="ui segment">
+        <h1>{title ? title : ''}</h1>
+        <div className="ui grid">
+          <div className="ten wide column">
+            <div className="form-field">
+              <div className="uploader"> {uploaderDisplay}</div>
+              {uploaderButtonDisplay}
+            </div>
           </div>
-        </div>
 
-        <div className="twelve wide column">
-          <div className="form-field">
-            <label>Title</label>
-            <input
-              value={title}
-              onChange={e => onSetTitle(e.target.value)}
-              type="text"
-            />
-          </div>
-          {error}
-          <div className="form-field">
-            <label>Link</label>
-            <input
-              value={link}
-              onChange={e => onSetLink(e.target.value)}
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <label>Show In Menu:</label>
-            <input
-              type="radio"
-              value={1}
-              checked={showInMenu === 1 ? true : false}
-              onChange={e => setShowInMenu(1)}
-            />
-            <label>yes</label>
-            <input
-              type="radio"
-              value={0}
-              checked={showInMenu === 0 ? true : false}
-              onChange={e => setShowInMenu(0)}
-            />
-            <label>no</label>
-          </div>
-          <div className="form-field">
-            <label>Order ( 0 = last )</label>
-            <input
-              min="0"
-              value={order}
-              onChange={e => setOrder(e.target.value)}
-              type="number"
-            />
-          </div>
-          <div className="form-field">
-            <label>BG image bottom</label>
-            <input
-              value={backgroundImageBottom}
-              onChange={e => setBackgroundImageBottom(e.target.value)}
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <label>BG image Left</label>
-            <input
-              value={backgroundImageLeft}
-              onChange={e => setBackgroundImageLeft(e.target.value)}
-              type="text"
-            />
-          </div>
-          <div className="form-field">
-            <label>content background color</label>
-            <input
-              value={backgroundColor}
-              onChange={e => setBackgroundColor(e.target.value)}
-              type="text"
-            />
+          <div className="six wide column">
+            <div className="form-field">
+              <label>Titel</label>
+              <input
+                value={title}
+                onChange={e => onSetTitle(e.target.value)}
+                type="text"
+              />
+            </div>
+            {error}
+
+            <div className="form-field">
+              <label>Reihenfolge:</label>
+              <input
+                min="0"
+                value={order}
+                onChange={e => setOrder(e.target.value)}
+                type="number"
+              />
+            </div>
+            <a onClick={onSubmitClick} className="ui primary button">
+              {props.type === 'edit' ? 'Aktualisieren' : 'Erstellen'}
+            </a>
           </div>
         </div>
       </div>
-      <button onClick={onSubmitClick} className="ui primary button">
-        {' '}
-        {props.type === 'edit' ? 'update' : 'create'}{' '}
-      </button>
-      <hr />
+
       {pageContentsDisplay}
     </div>
   );

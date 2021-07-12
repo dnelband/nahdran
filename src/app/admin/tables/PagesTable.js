@@ -25,12 +25,12 @@ function PagesTable() {
         <h1>Pages</h1>
         <div className="ui right menu secondary">
           <div>
-            <a
+            {/* <a
               href="/admin/create/page"
               className="ui green button labeled icon"
             >
               <i className="plus icon"></i> Add Page
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
@@ -38,13 +38,9 @@ function PagesTable() {
       <table className="ui celled padded table">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Link</th>
-            <th>Show in Menu</th>
-            <th>Order</th>
-            <th>Edit</th>
+            <th>Titel</th>
+            <th>Rehienfolge</th>
+            <th>Bearbeiten</th>
           </tr>
         </thead>
         <tbody>{tableRowsDisplay}</tbody>
@@ -56,23 +52,17 @@ function PagesTable() {
 function PagesTableItem(props) {
   const p = props.page;
 
-  function onDeletePageClick() {
-    $.ajax({
-      url: '/db/pages/' + p.page_id,
-      method: 'DELETE',
-    }).done(function (res) {
-      window.location.href = '/admin/pages/';
-    });
-  }
+  // function onDeletePageClick() {
+  //   $.ajax({
+  //     url: '/db/pages/' + p.page_id,
+  //     method: 'DELETE',
+  //   }).done(function (res) {
+  //     window.location.href = '/admin/pages/';
+  //   });
+  // }
   return (
     <tr>
-      <td className="collapsing">{p.page_id}</td>
-      <td className="collapsing">
-        <img src={__dirname + p.background_image} width="50" height="50" />
-      </td>
       <td width="50%">{p.title}</td>
-      <td>{p.link} </td>
-      <td>{p.show_in_menu}</td>
       <td>{p.ord}</td>
       <td>
         <a
@@ -81,9 +71,9 @@ function PagesTableItem(props) {
         >
           <i className="pencil icon"></i>
         </a>
-        <button onClick={onDeletePageClick} className="ui red button icon">
+        {/* <button onClick={onDeletePageClick} className="ui red button icon">
           <i className="remove icon"></i>
-        </button>
+        </button> */}
       </td>
     </tr>
   );

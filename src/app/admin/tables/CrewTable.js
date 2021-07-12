@@ -38,13 +38,10 @@ function CrewTable() {
       <table className="ui celled padded table">
         <thead>
           <tr>
-            <th>Id</th>
             <th>Picture</th>
             <th>Name</th>
             <th>Job</th>
-            <th>Type</th>
-            <th>About</th>
-            <th>Order</th>
+
             <th>Edit</th>
           </tr>
         </thead>
@@ -68,15 +65,11 @@ function CrewTableItem(props) {
 
   return (
     <tr>
-      <td className="collapsing">{cm.crew_id}</td>
       <td>
         <img width="50" src={__dirname + cm.picture} />
       </td>
       <td>{cm.name}</td>
       <td>{cm.job}</td>
-      <td>{cm.type ? cm.type : 'crew'} </td>
-      <td>{cm.about}</td>
-      <td>{cm.ord}</td>
       <td>
         <a
           href={'/admin/edit/crew/' + cm.crew_id}

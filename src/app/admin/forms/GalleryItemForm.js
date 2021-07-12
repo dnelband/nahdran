@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import MyDropzone from '../../partials/DropZone';
 import $ from 'jquery';
+import '../../style/adminGallery.css';
 
 function GalleryItemForm(props) {
   const gi = props.galleryItem;
-  const [title, setTitle] = useState(gi ? gi.title : '');
-  const [caption, setCaption] = useState(gi ? gi.caption : '');
   const [filepath, setFilePath] = useState(gi ? gi.filepath : '');
   const [thumbnail, setThumbnail] = useState(gi ? gi.thumbnail : '');
   const [type, setType] = useState(gi ? gi.type : '');
@@ -17,8 +16,6 @@ function GalleryItemForm(props) {
   function onSubmitClick() {
     const newGalleryItem = {
       gallery_id: gi ? gi.gallery_id : props.galleryId,
-      title,
-      caption,
       type,
       filepath,
       thumbnail,
@@ -32,19 +29,18 @@ function GalleryItemForm(props) {
       method: ajaxMethod,
       data: newGalleryItem,
     }).done(function (res) {
-
       props.onSubmit();
     });
   }
 
-  function deleteGalleryItem() {
-    $.ajax({
-      url: '/db/galleryitems/' + gi.gallery_item_id,
-      method: 'DELETE',
-    }).done(function (res) {
-      props.onSubmit();
-    });
-  }
+  // function deleteGalleryItem() {
+  //   $.ajax({
+  //     url: '/db/galleryitems/' + gi.gallery_item_id,
+  //     method: 'DELETE',
+  //   }).done(function (res) {
+  //     props.onSubmit();
+  //   });
+  // }
 
   function onSetFile(data) {
     setFilePath(data.path);
@@ -78,42 +74,36 @@ function GalleryItemForm(props) {
     );
   } else {
     uploaderDisplay = (
-      <div className="eight wide column">{galleryItemDisplay}</div>
+      <div className="gallery-item-display">{galleryItemDisplay}</div>
     );
   }
 
   return (
-    <div className="ui segment" style={{backgroundColor:(props.type === "create" ? "lightgray" : "")}}>
-      <h4 className="ui header">Gallery Item form</h4>
-      <div className="ui grid">
-        <div className="gallery-item-form eight wide column">
-          <input
-            type="text"
-            placeholder="Title..."
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-          />
-          <textarea
-            placeholder="caption..."
-            value={caption}
-            onChange={e => setCaption(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="form-field">
-          <label>Order ( 0 = last )</label>
-          <input
+    <div
+      className="gallery-content"
+      style={{ backgroundColor: props.type === 'create' ? 'lightgray' : '' }}
+    >
+      <div className="galley-items"> {uploaderDisplay}</div>
+    </div>
+  );
+}
+
+{
+  /* <label>Reihenfolge:1</label> */
+}
+{
+  /* <input
             min="0"
             value={ord}
             onChange={e => setOrd(e.target.value)}
             type="number"
-          />
-        </div>
-        <div> {uploaderDisplay}</div>
-      </div>
-      <button onClick={onSubmitClick}>{props.type} gallery item</button>
-      {gi ? <button onClick={deleteGalleryItem}>delete {gi.type}</button> : ''}
-    </div>
-  );
+          /> */
+}
+{
+  /* <button onClick={onSubmitClick}>{props.type} gallery item</button> */
+}
+{
+  /* {gi ? <button onClick={deleteGalleryItem}>delete {gi.type}</button> : ''} */
 }
 
 export default GalleryItemForm;

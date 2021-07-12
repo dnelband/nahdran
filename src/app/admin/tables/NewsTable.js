@@ -38,7 +38,6 @@ function NewsTable() {
       <table className="ui celled padded table">
         <thead>
           <tr>
-            <th>Id</th>
             <th>Title</th>
             <th>Text</th>
             <th>Date Created</th>
@@ -65,9 +64,10 @@ function NewsTableItem(props) {
 
   return (
     <tr>
-      <td className="collapsing">{ni.news_id}</td>
       <td>{ni.title}</td>
-      <td>{ni.text} </td>
+      <td>
+        <div dangerouslySetInnerHTML={{ __html: ni.text }}></div>
+      </td>
       <td>{ni.created_at}</td>
       <td>
         <a

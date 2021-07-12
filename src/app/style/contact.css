@@ -1,13 +1,11 @@
 @media (min-width: 821px) {
   #Kontakt .content-display {
     display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: auto 1fr;
-    grid-gap: 100px;
+    grid-template-rows: 1fr 1fr;
   }
   #Kontakt .content-display .contact-form {
-    grid-row-start: 1;
-    grid-row-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
     display: grid;
     grid-template-rows: 15% 15% 79% 10%;
     margin-left: 90px;
@@ -94,8 +92,8 @@
     text-align: center;
   }
   #Kontakt .content-value {
-    grid-row-start: 2;
-    grid-row-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
     opacity: 0.8;
     font-size: 15px;
     margin-top: 90px;
@@ -110,12 +108,12 @@
   }
   #Kontakt .visible .content-display {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 1fr 1fr;
     text-align: center;
   }
   #Kontakt .visible .content-display .contact-form {
-    grid-row-start: 1;
-    grid-row-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
     display: grid;
     grid-template-rows: 15% 15% 79% 10%;
   }
@@ -201,8 +199,8 @@
     text-align: center;
   }
   #Kontakt .visible .content-value {
-    grid-row-start: 2;
-    grid-row-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
     font-size: 15px;
     margin-top: 150px;
   }

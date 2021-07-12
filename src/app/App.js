@@ -13,10 +13,10 @@ function App() {
   let path = window.location.pathname.split('/')[1];
   // use that path to determine which content we display
   let pageDisplay,
-    headerDisplay = <Header path={path}/>;
+    headerDisplay = <Header path={path} />;
   switch (path) {
     case '':
-      pageDisplay = <Page path={'home'} />;
+      pageDisplay = <Page path={'Home'} />;
       break;
     case 'signin':
       pageDisplay = (

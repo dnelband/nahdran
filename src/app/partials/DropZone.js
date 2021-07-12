@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
+import './../style/pagesAdmin.css';
 
 function MyDropzone(props) {
   const reader = new FileReader();
@@ -59,7 +60,12 @@ function MyDropzone(props) {
       );
     }
     if (uploadSuccess === false) {
-      uploadButtonDisplay = <button onClick={uploadFile}>Upload img</button>;
+      uploadButtonDisplay = (
+        <a className="ui green button labeled icon" onClick={uploadFile}>
+          <i className="upload icon"></i>
+          Bild hochladen
+        </a>
+      );
     } else {
       uploadButtonDisplay = <i className="check icon"></i>;
     }
@@ -74,8 +80,11 @@ function MyDropzone(props) {
     textDisplay = '';
   }
   return (
-    <div className="ui segment">
-      <div className="dropzone-container" {...getRootProps()}>
+    <div className="ui segment my-dropzone">
+      <div
+        className={'dropzone-container' + (showImg === true ? ' with-img' : '')}
+        {...getRootProps()}
+      >
         <input {...getInputProps()} />
         {isDragActive ? <p>Drop the files here ...</p> : textDisplay}
         {itemDisplay}

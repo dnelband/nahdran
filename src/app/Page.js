@@ -11,10 +11,12 @@ function Page(props) {
   const [bgClass, setBgClass] = useState(initBgClass);
   const [fullBgLoaded, setFullBgLoaded] = useState(false);
   const [fullBgHeight, setFullBgHeight] = useState(null);
-  const [fullBgImageBottomAdjustment, setFullBgImageBottomAdjustment ] = useState(null);
-  const [fullBgImageLeftAdjustment, setFullBgImageLeftAdjustment ] = useState(null);
+  const [fullBgImageBottomAdjustment, setFullBgImageBottomAdjustment] =
+    useState(null);
+  const [fullBgImageLeftAdjustment, setFullBgImageLeftAdjustment] =
+    useState(null);
 
-  const [fullBgOpcaity, setFullBgOpcaity ] = useState(0);
+  const [fullBgOpcaity, setFullBgOpcaity] = useState(0);
 
   useEffect(() => {
     getPage();
@@ -49,18 +51,25 @@ function Page(props) {
     ));
   }
 
-  let pageStyle = {}
-  if (page && page.background_image){
-    let screenRatio =  1.777777777778;
-    let bgPosY = (window.innerHeight * screenRatio < window.innerWidth) && page.background_image_bottom ?  '-' + page.background_image_bottom + "px" : 'top'; 
-    let bgPosX = (window.innerHeight * screenRatio > window.innerWidth) && page.background_image_left ? page.background_image_left : 'center'; 
+  let pageStyle = {};
+  if (page && page.background_image) {
+    let screenRatio = 1.777777777778;
+    let bgPosY =
+      window.innerHeight * screenRatio < window.innerWidth &&
+      page.background_image_bottom
+        ? '-' + page.background_image_bottom + 'px'
+        : 'top';
+    let bgPosX =
+      window.innerHeight * screenRatio > window.innerWidth &&
+      page.background_image_left
+        ? page.background_image_left
+        : 'center';
     pageStyle = {
-      backgroundImage:`url('${page.background_image}')`,
-      backgroundPositionY:bgPosY,
-      backgroundPositionX:bgPosX
-    }
+      backgroundImage: `url('${page.background_image}')`,
+      backgroundPositionY: bgPosY,
+      backgroundPositionX: bgPosX,
+    };
   }
-
 
   let contentContainerDisplay = (
     <div className={'content-container visible'}>
@@ -68,7 +77,7 @@ function Page(props) {
     </div>
   );
 
-  if (props.path === 'home') {
+  if (props.path === 'Home') {
     contentContainerDisplay = (
       <div className="home-page-container">
         <div className="video-container">
@@ -91,10 +100,11 @@ function Page(props) {
   }
 
   let pageClassName;
-  if (props.path === "Regie_&_Team" || props.path === "Hinter_den_Kulissen") pageClassName = "content-left";
+  if (props.path === 'Regie_&_Team' || props.path === 'Hinter_den_Kulissen')
+    pageClassName = 'content-left';
 
   return (
-    <div style={pageStyle} className={"page " + pageClassName}id={props.path}>
+    <div style={pageStyle} className={'page ' + pageClassName} id={props.path}>
       {contentContainerDisplay}
     </div>
   );

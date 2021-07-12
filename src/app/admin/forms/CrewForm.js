@@ -68,10 +68,10 @@ function CrewForm(props) {
             value={name}
             onChange={e => setName(e.target.value)}
           />
-          <select value={type} onChange={e => setType(e.target.value)}>
+          {/* <select value={type} onChange={e => setType(e.target.value)}>
             <option value="crew">crew</option>
             <option value="cast">cast</option>
-          </select>
+          </select> */}
           <input
             placeholder="job"
             type="text"
@@ -84,7 +84,7 @@ function CrewForm(props) {
             onChange={e => setAbout(e.target.value)}
           />
           <div className="form-field">
-            <label>Order ( 0 = last )</label>
+            <label>Reihenfolge:</label>
             <input
               min="0"
               value={ord}
@@ -92,7 +92,7 @@ function CrewForm(props) {
               type="number"
             />
           </div>
-          <button onClick={onSubmitClick}>{props.type} crew member</button>
+          <button onClick={onSubmitClick}>Hinzufügen</button>
         </div>
       </div>
     </div>

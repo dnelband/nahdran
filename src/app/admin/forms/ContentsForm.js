@@ -43,15 +43,15 @@ function ContentsForm(props) {
     });
   }
 
-  function deleteContents() {
-    $.ajax({
-      url: '/db/contents/' + ct.content_id,
-      method: 'DELETE',
-    }).done(function (res) {
-      if (ct.type === 'galleries') deleteItem('galleries', ct.value);
-      else window.location.href = '/admin/edit/page/' + props.pageId;
-    });
-  }
+  // function deleteContents() {
+  //   $.ajax({
+  //     url: '/db/contents/' + ct.content_id,
+  //     method: 'DELETE',
+  //   }).done(function (res) {
+  //     if (ct.type === 'galleries') deleteItem('galleries', ct.value);
+  //     else window.location.href = '/admin/edit/page/' + props.pageId;
+  //   });
+  // }
 
   function deleteItem(it, id) {
     $.ajax({
@@ -77,58 +77,21 @@ function ContentsForm(props) {
         galleryId={ct ? ct.value : null}
       />
     );
-  else if (contentType === 'news') contentsDisplay = <NewsTable />;
 
   let submitButtonDisplay = (
-    <button onClick={onSubmitClick}>{props.type} contents</button>
+    <button className="ui primary button" onClick={onSubmitClick}>
+      Aktualisieren
+    </button>
   );
   if (props.type === 'edit' && contentType === 'gallery')
     submitButtonDisplay = null;
 
-  let contentsHeaderDisplay;
-  if (props.type === 'create') {
-    contentsHeaderDisplay = (
-      <select
-        disabled={ct ? 'disable' : ''}
-        value={contentType}
-        onChange={e => setContentType(e.target.value)}
-      >
-        <option value="0">select content type</option>
-        {contentTypes.map((c, index) => (
-          <option key={index} value={c}>
-            {c}
-          </option>
-        ))}
-      </select>
-    );
-  } else {
-    contentsHeaderDisplay = (
-      <div className="ui header">
-        <h2>{ct.type}</h2>
-        <button onClick={deleteContents}>Delete Content</button>
-      </div>
-    );
-  }
-
   return (
-    <div
-      className="ui raised segment contents-form"
-      style={{ backgroundColor: '#efefef' }}
-    >
-      {contentsHeaderDisplay}
-      <hr />
-      <div className="form-field">
-        <label>Order ( 0 = last )</label>
-        <input
-          min="0"
-          value={ord}
-          onChange={e => setOrd(e.target.value)}
-          type="number"
-        />
+    <div className="ui segment">
+      <div className="contents-form">
+        {contentsDisplay}
+        {submitButtonDisplay}
       </div>
-      {contentsDisplay}
-      <hr />
-      {submitButtonDisplay}
     </div>
   );
 }

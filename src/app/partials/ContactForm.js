@@ -135,7 +135,6 @@ function ContactForm(props) {
           Submit
         </a>
       </div>
-
       {submitSuccess}
     </div>
   );
