@@ -108,7 +108,9 @@ exports.createGalleryItem = (req, res) => {
 
 exports.updateGalleryItem = (req, res) => {
   console.log('update gallery item');
+  console.log(req.params.id);
   const { type, gallery_id, filepath, title, caption, ord } = req.body;
+  console.log(type, gallery_id, filepath, title, caption, ord);
   db.run(
     `UPDATE gallery_items SET 
           type = COALESCE(?,type),
@@ -121,8 +123,6 @@ exports.updateGalleryItem = (req, res) => {
           WHERE gallery_item_id = ?`,
     [type, gallery_id, filepath, title, caption, ord, req.params.id],
     function (err, result) {
-      console.log(ord);
-      console.log(err);
       if (err) {
         res.status(400).json({ error: res.message });
         return;

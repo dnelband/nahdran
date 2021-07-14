@@ -22,7 +22,7 @@ function PagesTable() {
   return (
     <div>
       <div className="section-header ui secondary menu">
-        <h1>Pages</h1>
+        <h1>Seiten</h1>
         <div className="ui right menu secondary">
           <div>
             {/* <a

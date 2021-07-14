@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
-import { SRLWrapper } from 'simple-react-lightbox';
 import GalleryItemForm from './GalleryItemForm';
 import TextEditor from '../../partials/TextEditor';
 import '../../style/adminGallery.css';
@@ -81,7 +80,7 @@ function GalleryForm(props) {
     galleryDisplay = (
       <div className="gallery-items-container">
         <a
-          className="ui green button labeled icon"
+          className="ui green button labeled icon upload-btn"
           onClick={() =>
             setShowAddGalleryItemForm(
               showAddGalelryItemForm === true ? false : true
@@ -91,10 +90,9 @@ function GalleryForm(props) {
           <i className="plus icon"></i>
           Bild hochladen
         </a>
+
         {addGalelryItemForm}
-        <SRLWrapper>
-          <div className="gallery-images">{galleryItemsDisplay}</div>
-        </SRLWrapper>
+        <div className="gallery-images">{galleryItemsDisplay}</div>
       </div>
     );
   }
@@ -117,7 +115,7 @@ function GalleryForm(props) {
         /> */}
         {textEditorDisplay}
       </div>
-      <a className="ui primary button" onClick={onSubmitClick}>
+      <a className="ui primary button update" onClick={onSubmitClick}>
         Aktualisieren
       </a>
       <hr />

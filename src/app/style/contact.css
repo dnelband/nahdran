@@ -1,11 +1,11 @@
 @media (min-width: 821px) {
   #Kontakt .content-display {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
   #Kontakt .content-display .contact-form {
-    grid-row-start: 2;
-    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
     display: grid;
     grid-template-rows: 15% 15% 79% 10%;
     margin-left: 90px;
@@ -92,8 +92,8 @@
     text-align: center;
   }
   #Kontakt .content-value {
-    grid-row-start: 1;
-    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
     opacity: 0.8;
     font-size: 15px;
     margin-top: 90px;

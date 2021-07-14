@@ -139,9 +139,10 @@ let db = new sqlite3.Database(DBSOURCE, err => {
             'picture',
             1,
             'pictures/1.jpg',
-            '',
+            'pictures/1.jpg',
             'test picture',
             'lalalala caption',
+            8,
           ]);
         }
       }

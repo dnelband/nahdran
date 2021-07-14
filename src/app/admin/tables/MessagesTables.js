@@ -30,8 +30,8 @@ function MessagesTable(props) {
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Message</th>
-            <th>Created At</th>
+            <th>Nachricht</th>
+            <th>Gesendet am</th>
             <th>Read</th>
             <th>Edit</th>
           </tr>
