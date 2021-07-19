@@ -50,7 +50,9 @@ function NewsForm(props) {
         // value={text}
         // onChange={e => setText(e.target.value)}
       />
-      <button onClick={onSubmitClick}>{props.type} news item</button>
+      <button onClick={onSubmitClick}>
+        {props.type === 'edit' ? 'Aktualisieren' : 'Hinzufügen'}
+      </button>
     </div>
   );
 }

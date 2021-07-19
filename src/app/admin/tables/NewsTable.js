@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement('#root');
 
 function NewsTable() {
   const [news, setNews] = useState();
@@ -22,14 +37,14 @@ function NewsTable() {
   return (
     <div>
       <div className="section-header ui secondary menu">
-        <h1>News</h1>
+        <h1>Aktuelles</h1>
         <div className="ui right menu secondary">
           <div>
             <a
               href="/admin/create/news"
               className="ui green button labeled icon"
             >
-              <i className="plus icon"></i> Add News Item
+              <i className="plus icon"></i> Neue Artikle hinzufügen
             </a>
           </div>
         </div>
@@ -38,10 +53,10 @@ function NewsTable() {
       <table className="ui celled padded table">
         <thead>
           <tr>
-            <th>Title</th>
+            <th>Titel</th>
             <th>Text</th>
-            <th>Date Created</th>
-            <th>Edit</th>
+            <th>Geschrieben am</th>
+            <th>Bearbeiten</th>
           </tr>
         </thead>
         <tbody>{tableRowsDisplay}</tbody>
@@ -51,7 +66,22 @@ function NewsTable() {
 }
 
 function NewsTableItem(props) {
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
   const ni = props.newsItem;
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#f00';
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   function onDeleteNewsItemClick() {
     $.ajax({
@@ -59,6 +89,7 @@ function NewsTableItem(props) {
       method: 'DELETE',
     }).done(function (res) {
       window.location.href = '/admin/news/';
+      closeModal();
     });
   }
 
@@ -76,9 +107,32 @@ function NewsTableItem(props) {
         >
           <i className="pencil icon"></i>
         </a>
-        <button onClick={onDeleteNewsItemClick} className="ui red button icon">
+        <button onClick={openModal} className="ui red button icon">
           <i className="remove icon"></i>
         </button>
+
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <div className="my-popup-modal">
+            <a className="close-icon" onClick={closeModal}>
+              <i className="icon close"></i>
+            </a>
+            Artikel entfernen?
+            <form>
+              <button
+                onClick={onDeleteNewsItemClick}
+                className="ui red button icon"
+              >
+                Entfernen
+              </button>
+            </form>
+          </div>
+        </Modal>
       </td>
     </tr>
   );

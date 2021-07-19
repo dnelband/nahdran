@@ -2,13 +2,18 @@
   #Kontakt {
     .content-display {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: auto 1fr;
+
+      .title-text {
+        font-size: 15px;
+      }
 
       .contact-form {
         grid-column-start: 1;
         grid-column-end: 2;
+
         display: grid;
-        grid-template-rows: 15% 15% 79% 10%;
+        grid-template-rows: 10% 15% 15% 78% 10%;
         margin-left: 90px;
 
         .name-input,
@@ -36,15 +41,14 @@
           position: relative;
           .btn {
             position: absolute;
-            left: 50%;
-            top: 50%;
+            left: 40%;
             transform: translate(-50%, -50%);
             color: #4c4c4c;
             text-decoration: none;
             font-size: 2em;
             display: inline-block;
             text-transform: uppercase;
-            padding: 0.5em 2em;
+            padding: 0.5em 1.2em;
             border: 2px solid #4c4c4c;
             transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
           }
@@ -105,11 +109,11 @@
       grid-column-start: 2;
       grid-column-end: 3;
       opacity: 0.8;
-      font-size: 15px;
-      margin-top: 90px;
-
+      margin-top: 42vh;
+      margin-left: 6vw;
       p {
-        line-height: 1em;
+        line-height: 4px;
+        font-size: 15px;
       }
     }
   }

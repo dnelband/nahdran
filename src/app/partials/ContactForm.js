@@ -94,6 +94,11 @@ function ContactForm(props) {
   // display the form
   return (
     <div className="contact-form">
+      <div className="title-text">
+        Schreibt uns gerne bei Fragen, Anregung, Kritik oder Sonstigem:
+        <br />
+        nahdran@mailo.com
+      </div>
       <div className="name">
         <div>Name</div>
         <input
@@ -132,10 +137,10 @@ function ContactForm(props) {
 
       <div className="submit">
         <a className="btn" onClick={submitForm}>
-          Submit
+          Absenden
         </a>
+        {submitSuccess}
       </div>
-      {submitSuccess}
     </div>
   );
 
