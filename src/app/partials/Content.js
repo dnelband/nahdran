@@ -10,7 +10,7 @@ function Content(props) {
   if (content.type === 'html') {
     contentDisplay = (
       <div
-        className="content-value"
+        className="content-value html"
         dangerouslySetInnerHTML={{ __html: content.value }}
       ></div>
     );

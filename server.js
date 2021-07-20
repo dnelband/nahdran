@@ -78,13 +78,18 @@ app.post('/upload', function (req, res) {
 
   let subdir = 'pictures';
   if (myFile.mimetype.indexOf('video') > -1) subdir = 'videos';
+
+  console.log(subdir);
+
   //  mv() method places the file inside public directory
   myFile.mv(
     `${__dirname}/uploads/${subdir}/${newFileName}`,
     async function (err) {
       if (err) return res.status(500).send({ msg: 'Error occured' });
       try {
+        console.log('try');
         if (subdir === 'pictures') {
+          console.log('what');
           const thumbnail = await imageThumbnail(
             `${__dirname}/uploads/${subdir}/${newFileName}`
           );

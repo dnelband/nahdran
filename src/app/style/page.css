@@ -38,9 +38,24 @@ main,
 .page .content-container .title {
   text-transform: uppercase;
 }
-.page .content-container .content-value {
-  line-height: normal;
+.page .content-container .content-value.html p {
+  margin-bottom: 0;
+}
+.page .content-container .content-value.html p:empty {
+  margin-bottom: 5px;
+}
+.page .content-container .content-value.html a {
+  color: red;
 }
 .page.content-left .content-container {
   margin: 0 0 0 5vw !important;
+}
+.page.spacing-top .content-container {
+  margin-left: 3vw !important;
+  top: 40vh;
+  height: 275px;
+  padding-top: 0;
+}
+.page.spacing-top .content-container .description {
+  padding-bottom: 25px;
 }

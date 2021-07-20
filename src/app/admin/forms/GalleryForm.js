@@ -88,7 +88,7 @@ function GalleryForm(props) {
           }
         >
           <i className="plus icon"></i>
-          Bild hochladen
+          Bild hinzufügen
         </a>
 
         {addGalleryItemForm}

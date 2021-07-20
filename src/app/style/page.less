@@ -42,13 +42,37 @@ main,
     }
 
     .content-value {
-      line-height: normal;
+      &.html {
+        p {
+          margin-bottom: 0;
+
+          &:empty {
+            margin-bottom: 5px;
+          }
+        }
+        a {
+          color: red;
+        }
+      }
     }
   }
 
   &.content-left {
     .content-container {
       margin: 0 0 0 5vw !important;
+    }
+  }
+
+  &.spacing-top {
+    .content-container {
+      margin-left: 3vw !important;
+      top: 40vh;
+      height: 275px;
+      padding-top: 0;
+
+      .description {
+        padding-bottom: 25px;
+      }
     }
   }
 }

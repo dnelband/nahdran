@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import MyDropzone from '../../partials/DropZone';
 import $ from 'jquery';
 import '../../style/adminGallery.css';
@@ -30,6 +30,22 @@ function GalleryItemForm(props) {
 
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const previousFilepath = usePrevious(filepath);
+
+  useEffect(() => {
+    if (props.type === 'create') {
+      console.log(filepath && previousFilepath);
+    }
+
+    if (
+      filepath !== undefined &&
+      previousFilepath !== undefined &&
+      filepath !== previousFilepath
+    ) {
+      console.log('yo yo yo');
+      onSubmitClick();
+    }
+  }, [filepath]);
 
   function openModal() {
     setIsOpen(true);
@@ -47,19 +63,20 @@ function GalleryItemForm(props) {
   function onSubmitClick() {
     const newGalleryItem = {
       gallery_id: gi ? gi.gallery_id : props.galleryId,
-      type,
+      type: type ? type : 'picture',
       filepath,
       thumbnail,
       ord: parseInt(ord),
     };
     let ajaxMethod = props.type === 'edit' ? 'PUT' : 'POST';
-
+    console.log(newGalleryItem);
     $.ajax({
       url:
         '/db/galleryitems/' + (props.type === 'edit' ? gi.gallery_item_id : ''),
       method: ajaxMethod,
       data: newGalleryItem,
     }).done(function (res) {
+      console.log(res);
       props.onSubmit();
     });
   }
@@ -69,25 +86,25 @@ function GalleryItemForm(props) {
       url: '/db/galleryitems/' + gi.gallery_item_id,
       method: 'DELETE',
     }).done(function (res) {
-      props.onSubmit();
+      window.location.reload();
       closeModal();
     });
   }
 
   function onSetFile(data) {
-    setFilePath(data.path);
     setThumbnail(data.thumbnail);
     setType(data.type);
     setShowUploader(false);
+    setFilePath(data.path);
   }
 
   let galleryItemDisplay;
   if (filepath) {
-    if (type === 'picture')
+    if (type === 'picture') {
       galleryItemDisplay = (
         <img width="100%" src={__dirname + filepath} onClick={openModal} />
       );
-    else if (type === 'video') {
+    } else if (type === 'video') {
       galleryItemDisplay = (
         <video src={__dirname + filepath} width="320" height="240" controls>
           <source
@@ -104,7 +121,9 @@ function GalleryItemForm(props) {
   let uploaderDisplay;
   if (showUploader === true) {
     uploaderDisplay = (
-      <MyDropzone image={__dirname + filepath} onFinishUpload={onSetFile} />
+      <div className="uploader">
+        <MyDropzone image={__dirname + filepath} onFinishUpload={onSetFile} />
+      </div>
     );
   } else {
     uploaderDisplay = (
@@ -162,5 +181,20 @@ function GalleryItemForm(props) {
 {
   /* {gi ? <button onClick={deleteGalleryItem}>delete {gi.type}</button> : ''} */
 }
+
+// Hook use Previous
+const usePrevious = value => {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+};
 
 export default GalleryItemForm;

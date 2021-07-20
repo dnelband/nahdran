@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import $ from 'jquery';
 import Modal from 'react-modal';
+import '../../style/adminContact.css';
 
 const customStyles = {
   content: {
@@ -48,7 +49,7 @@ function MessagesTable(props) {
             <th>Nachricht</th>
             <th>Gesendet am</th>
             <th>Gelesen</th>
-            <th>Edit</th>
+            <th>Entfernen</th>
           </tr>
         </thead>
         <tbody>{tableRowsDisplay}</tbody>
@@ -58,11 +59,11 @@ function MessagesTable(props) {
 }
 
 function MessagesTableItem(props) {
+  const m = props.message;
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [read, setRead] = useState(false);
-
-  const m = props.message;
+  const [read, setRead] = useState(m.read === 'true' ? true : false);
+  console.log(read);
 
   function openModal() {
     setIsOpen(true);
@@ -77,6 +78,26 @@ function MessagesTableItem(props) {
     setIsOpen(false);
   }
 
+  function onReadCheckboxClick() {
+    const updatedMessage = {
+      name: m.name,
+      email: m.email,
+      msg: m.msg,
+      created_at: m.created_at,
+      read: read === true ? false : true,
+    };
+    console.log(updatedMessage);
+
+    $.ajax({
+      url: '/db/messages/' + m.msg_id,
+      method: 'PUT',
+      data: updatedMessage,
+    }).done(function (res) {
+      // window.location.href = '/admin/messages/';
+      setRead(updatedMessage.read);
+    });
+  }
+
   function onDeleteMessageClick() {
     $.ajax({
       url: '/db/messages/' + m.msg_id,
@@ -88,15 +109,25 @@ function MessagesTableItem(props) {
   }
 
   return (
-    <tr>
-      <td>{m.name}</td>
-      <td>{m.email}</td>
-      <td>{m.msg}</td>
-      <td>{m.created_at}</td>
+    <tr className={'read' + (read === false ? ' unread' : '')}>
       <td>
-        <div className={'ui checkbox' + (read === false) ? '' : 'checked'}>
-          <input type="checkbox" />
-        </div>
+        <span>{m.name}</span>
+      </td>
+      <td>
+        <span>{m.email}</span>
+      </td>
+      <td>
+        <span>{m.msg}</span>
+      </td>
+      <td>
+        <span>{m.created_at}</span>
+      </td>
+      <td>
+        <input
+          type="checkbox"
+          checked={read === true ? 'checked' : ''}
+          onChange={onReadCheckboxClick}
+        />
       </td>
 
       <td>

@@ -23,9 +23,11 @@ function News(props) {
 
   if (news) {
     displayNews = news.map((n, i) => (
-      <div className="news-container" key={i}>
+      <div className="news-container html" key={i}>
         <h3>{n.title}</h3>
+        <br />
         <p dangerouslySetInnerHTML={{ __html: n.text }}></p>
+        <br />
         <div className="created-at">{n.created_at.split(' ')[0]}</div>
         <hr></hr>
       </div>

@@ -3,18 +3,22 @@
     display: grid;
     grid-template-columns: auto 1fr;
   }
-  #Kontakt .content-display .title-text {
-    font-size: 15px;
-  }
   #Kontakt .content-display .contact-form {
     grid-column-start: 1;
     grid-column-end: 2;
-    display: grid;
-    grid-template-rows: 10% 15% 15% 78% 10%;
     margin-left: 90px;
   }
-  #Kontakt .content-display .contact-form .name-input,
-  #Kontakt .content-display .contact-form .email-input {
+  #Kontakt .content-display .contact-form .title-text {
+    font-size: 18px;
+  }
+  #Kontakt .content-display .contact-form .inner-contact-form {
+    display: grid;
+    grid-template-rows: 15% 15% auto 10%;
+    width: 275px;
+    grid-gap: 10px;
+  }
+  #Kontakt .content-display .contact-form .inner-contact-form .name-input,
+  #Kontakt .content-display .contact-form .inner-contact-form .email-input {
     margin-top: 3px;
     width: 275px;
     border: none;
@@ -22,8 +26,9 @@
     height: 25px;
     color: whitesmoke;
     border-radius: 5px;
+    cursor: pointer;
   }
-  #Kontakt .content-display .contact-form .inputarea {
+  #Kontakt .content-display .contact-form .inner-contact-form .inputarea {
     margin-top: 3px;
     width: 275px;
     border: none;
@@ -31,24 +36,28 @@
     height: 270px;
     color: whitesmoke;
     border-radius: 5px;
+    cursor: pointer;
   }
-  #Kontakt .content-display .contact-form .submit {
+  #Kontakt .content-display .contact-form .inner-contact-form .submit {
     position: relative;
+    cursor: pointer;
   }
-  #Kontakt .content-display .contact-form .submit .btn {
+  #Kontakt .content-display .contact-form .inner-contact-form .submit .btn {
     position: absolute;
-    left: 40%;
+    width: 275px;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     color: #4c4c4c;
     text-decoration: none;
     font-size: 2em;
     display: inline-block;
     text-transform: uppercase;
-    padding: 0.5em 1.2em;
+    padding: 0.5em 1.5em;
     border: 2px solid #4c4c4c;
     transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .content-display .contact-form .submit .btn::before {
+  #Kontakt .content-display .contact-form .inner-contact-form .submit .btn::before {
     content: '';
     display: inline-block;
     position: absolute;
@@ -60,7 +69,7 @@
     transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
     z-index: -1;
   }
-  #Kontakt .content-display .contact-form .submit .btn::after {
+  #Kontakt .content-display .contact-form .inner-contact-form .submit .btn::after {
     content: '';
     display: inline-block;
     background-image: url('https://image.flaticon.com/icons/png/128/109/109617.png');
@@ -74,22 +83,23 @@
     background-position: center;
     transition: right 0.3s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .content-display .contact-form .submit .btn:hover {
-    padding: 0.5em 3.5em 0.5em 0.5em;
+  #Kontakt .content-display .contact-form .inner-contact-form .submit .btn:hover {
+    padding: 0.5em 3.5em 0.5em 1.5em;
   }
-  #Kontakt .content-display .contact-form .submit .btn:hover::before {
+  #Kontakt .content-display .contact-form .inner-contact-form .submit .btn:hover::before {
     left: calc(100% - 3em);
     right: 0;
     transition: 0.3s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .content-display .contact-form .submit .btn:hover::after {
+  #Kontakt .content-display .contact-form .inner-contact-form .submit .btn:hover::after {
     right: 0;
     transition: right 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .content-display .error {
+  #Kontakt .content-display .contact-form .error {
     color: red;
+    padding-bottom: 50px;
   }
-  #Kontakt .content-display .success {
+  #Kontakt .content-display .contact-form .success {
     margin-top: 15px;
     text-align: center;
   }
@@ -99,10 +109,6 @@
     opacity: 0.8;
     margin-top: 42vh;
     margin-left: 6vw;
-  }
-  #Kontakt .content-value p {
-    line-height: 4px;
-    font-size: 15px;
   }
 }
 @media (max-width: 820px) {
@@ -117,11 +123,18 @@
   #Kontakt .visible .content-display .contact-form {
     grid-row-start: 2;
     grid-row-end: 3;
-    display: grid;
-    grid-template-rows: 15% 15% 79% 10%;
   }
-  #Kontakt .visible .content-display .contact-form .name-input,
-  #Kontakt .visible .content-display .contact-form .email-input {
+  #Kontakt .visible .content-display .contact-form .title-text {
+    font-size: 18px;
+    text-align: center;
+  }
+  #Kontakt .visible .content-display .contact-form .inner-contact-form {
+    display: grid;
+    grid-template-rows: 15% 15% auto 10%;
+    grid-gap: 10px;
+  }
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .name-input,
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .email-input {
     margin-top: 3px;
     width: 275px;
     border: none;
@@ -130,19 +143,19 @@
     color: whitesmoke;
     border-radius: 5px;
   }
-  #Kontakt .visible .content-display .contact-form .inputarea {
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .inputarea {
     margin-top: 3px;
     width: 275px;
     border: none;
     background-color: #171717;
-    height: 270px;
+    height: 275px;
     color: whitesmoke;
     border-radius: 5px;
   }
-  #Kontakt .visible .content-display .contact-form .submit {
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .submit {
     position: relative;
   }
-  #Kontakt .visible .content-display .contact-form .submit .btn {
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .submit .btn {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -152,11 +165,11 @@
     font-size: 2em;
     display: inline-block;
     text-transform: uppercase;
-    padding: 0.5em 2em;
+    padding: 0.5em 1.5em;
     border: 2px solid #4c4c4c;
     transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .visible .content-display .contact-form .submit .btn::before {
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .submit .btn::before {
     content: '';
     display: inline-block;
     position: absolute;
@@ -168,7 +181,7 @@
     transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
     z-index: -1;
   }
-  #Kontakt .visible .content-display .contact-form .submit .btn::after {
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .submit .btn::after {
     content: '';
     display: inline-block;
     background-image: url('https://image.flaticon.com/icons/png/128/109/109617.png');
@@ -182,22 +195,22 @@
     background-position: center;
     transition: right 0.3s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .visible .content-display .contact-form .submit .btn:hover {
-    padding: 0.5em 3.5em 0.5em 0.5em;
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .submit .btn:hover {
+    padding: 0.5em 1.5em 0.5em 1.5em;
   }
-  #Kontakt .visible .content-display .contact-form .submit .btn:hover::before {
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .submit .btn:hover::before {
     left: calc(100% - 3em);
     right: 0;
     transition: 0.3s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .visible .content-display .contact-form .submit .btn:hover::after {
+  #Kontakt .visible .content-display .contact-form .inner-contact-form .submit .btn:hover::after {
     right: 0;
     transition: right 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
   }
-  #Kontakt .visible .content-display .error {
+  #Kontakt .visible .content-display .contact-form .error {
     color: red;
   }
-  #Kontakt .visible .content-display .success {
+  #Kontakt .visible .content-display .contact-form .success {
     margin-top: 15px;
     text-align: center;
   }
@@ -206,8 +219,5 @@
     grid-row-end: 2;
     font-size: 15px;
     margin-top: 150px;
-  }
-  #Kontakt .visible .content-value p {
-    line-height: 1em;
   }
 }

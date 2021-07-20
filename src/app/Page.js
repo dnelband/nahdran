@@ -6,17 +6,6 @@ import './style/home.css';
 function Page(props) {
   const [page, setPage] = useState();
   const [content, setContent] = useState();
-  const initBgClass =
-    window.innerHeight * 1.33 < window.innerWidth ? 'max-width' : 'max-height';
-  const [bgClass, setBgClass] = useState(initBgClass);
-  const [fullBgLoaded, setFullBgLoaded] = useState(false);
-  const [fullBgHeight, setFullBgHeight] = useState(null);
-  const [fullBgImageBottomAdjustment, setFullBgImageBottomAdjustment] =
-    useState(null);
-  const [fullBgImageLeftAdjustment, setFullBgImageLeftAdjustment] =
-    useState(null);
-
-  const [fullBgOpcaity, setFullBgOpcaity] = useState(0);
 
   useEffect(() => {
     getPage();
@@ -99,10 +88,12 @@ function Page(props) {
     );
   }
 
-  let pageClassName;
+  let pageClassName = '';
   if (props.path === 'Regie_&_Team' || props.path === 'Hinter_den_Kulissen')
-    pageClassName = 'content-left';
-
+    pageClassName += 'content-left ';
+  if (props.path === 'Hinter_den_Kulissen') {
+    pageClassName += 'spacing-top';
+  }
   return (
     <div style={pageStyle} className={'page ' + pageClassName} id={props.path}>
       {contentContainerDisplay}
