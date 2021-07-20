@@ -1,6 +1,15 @@
 .news-container {
   margin-bottom: 30px;
 }
+.news-container p {
+  margin-bottom: 0;
+}
+.news-container p:empty {
+  margin-bottom: 5px;
+}
+.news-container a {
+  color: red;
+}
 .news-container .created-at {
   font-style: italic;
   opacity: 0.5;

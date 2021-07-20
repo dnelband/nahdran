@@ -29,6 +29,9 @@ function ContactForm(props) {
         data: newMessage,
       }).done(function (res) {
         setMsgSent(true);
+        setName('');
+        setEmail('');
+        setMsg('');
       });
     }
 
@@ -94,48 +97,57 @@ function ContactForm(props) {
   // display the form
   return (
     <div className="contact-form">
-      <div className="name">
-        <div>Name</div>
-        <input
-          className="name-input"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          type="text"
-          placeholder="Name"
-        />
-        {nameErrorDisplay}
-      </div>
-
-      <div className="email">
-        <div>Email</div>
-        <input
-          className="email-input"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          type="email"
-          placeholder="Email"
-        />
-        {emailErrorDisplay}
-      </div>
-      <div className="msg">
-        <div>Deine Nachricht</div>
-        <textarea
-          id="textarea"
-          className="inputarea"
-          value={msg}
-          onChange={e => setMsg(e.target.value)}
-          type="text"
-          placeholder="Text"
-        />
-        {msgerrorDisplay}
-      </div>
-
-      <div className="submit">
-        <a className="btn" onClick={submitForm}>
-          Submit
-        </a>
-      </div>
       {submitSuccess}
+
+      <div className="title-text">
+        Schreibt uns gerne bei Fragen, Anregung, Kritik oder Sonstigem:
+        <br />
+        nahdran@mailo.com
+      </div>
+      <br />
+      <div className="inner-contact-form">
+        <div className="name">
+          <div>Name</div>
+          <input
+            className="name-input"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            type="text"
+            placeholder="Name"
+          />
+          {nameErrorDisplay}
+        </div>
+
+        <div className="email">
+          <div>Email</div>
+          <input
+            className="email-input"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            type="email"
+            placeholder="Email"
+          />
+          {emailErrorDisplay}
+        </div>
+        <div className="msg">
+          <div>Deine Nachricht</div>
+          <textarea
+            id="textarea"
+            className="inputarea"
+            value={msg}
+            onChange={e => setMsg(e.target.value)}
+            type="text"
+            placeholder="Text"
+          />
+          {msgerrorDisplay}
+        </div>
+
+        <div className="submit">
+          <a className="btn" onClick={submitForm}>
+            Absenden
+          </a>
+        </div>
+      </div>
     </div>
   );
 

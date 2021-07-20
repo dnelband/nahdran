@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import MyDropzone from '../../partials/DropZone';
 
@@ -9,6 +9,8 @@ function CrewForm(props) {
   const [picture, setPicture] = useState('');
   const [about, setAbout] = useState('');
   const [ord, setOrd] = useState(0);
+  const [showUploader, setShowUploader] = useState(false);
+  const previousPicture = usePrevious(picture);
 
   useState(() => {
     if (props.itemId) {
@@ -24,6 +26,14 @@ function CrewForm(props) {
         });
     }
   }, []);
+
+  useEffect(() => {
+    if (props.type === 'edit') {
+      if (picture && previousPicture && picture !== previousPicture) {
+        onSubmitClick();
+      }
+    }
+  }, [picture]);
 
   function onSubmitClick() {
     const newCrewMember = {
@@ -54,13 +64,33 @@ function CrewForm(props) {
     setPicture(data.path);
   }
 
+  let uploaderDisplay;
+  if (showUploader === true) {
+    uploaderDisplay = (
+      <MyDropzone image={picture} onFinishUpload={onSetPicture} />
+    );
+  } else {
+    uploaderDisplay = <img width="100" src={__dirname + picture} />;
+  }
+
+  let uploaderButtonDisplay;
+  if (showUploader === false) {
+    uploaderButtonDisplay = (
+      <a onClick={() => setShowUploader(showUploader === true ? false : true)}>
+        <i className="redo icon"></i>
+        {props.type === 'edit' ? 'Bild aktualisieren' : 'Bild hochladen'}
+      </a>
+    );
+  }
+
   return (
     <div className="crew-form">
       <div className="ui grid">
         <div className="four wide column">
-          <img width="100" src={__dirname + picture} />
-          <MyDropzone image={picture} onFinishUpload={onSetPicture} />
+          {uploaderDisplay}
+          {uploaderButtonDisplay}
         </div>
+
         <div className="twelve wide column ">
           <input
             placeholder="name"
@@ -98,5 +128,20 @@ function CrewForm(props) {
     </div>
   );
 }
+
+// Hook use Previous
+export const usePrevious = value => {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
+};
 
 export default CrewForm;

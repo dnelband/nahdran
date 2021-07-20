@@ -42,7 +42,18 @@ main,
     }
 
     .content-value {
-      line-height: normal;
+      &.html {
+        p {
+          margin-bottom: 0;
+
+          &:empty {
+            margin-bottom: 5px;
+          }
+        }
+        a {
+          color: red;
+        }
+      }
     }
   }
 
@@ -52,4 +63,16 @@ main,
     }
   }
 
+  &.spacing-top {
+    .content-container {
+      margin-left: 3vw !important;
+      top: 40vh;
+      height: 275px;
+      padding-top: 0;
+
+      .description {
+        padding-bottom: 25px;
+      }
+    }
+  }
 }

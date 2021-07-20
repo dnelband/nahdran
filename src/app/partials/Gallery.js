@@ -6,13 +6,14 @@ import $ from 'jquery';
 function Gallery(props) {
   const [galleryContent, setGalleryContent] = useState();
   const [galleryItems, setGalleryItems] = useState([]);
-  const contentContainerWidth = document.getElementsByClassName('content-container')[0].offsetWidth - 80;
+  const contentContainerWidth =
+    document.getElementsByClassName('content-container')[0].offsetWidth - 80;
 
   const [sliderWidth, setSliderWidth] = useState(contentContainerWidth);
   let initNumItemDisplay = 3;
-  if ((sliderWidth / initNumItemDisplay) < 300) {
+  if (sliderWidth / initNumItemDisplay < 300) {
     initNumItemDisplay = 2;
-    if ((sliderWidth / initNumItemDisplay) < 300) {
+    if (sliderWidth / initNumItemDisplay < 300) {
       initNumItemDisplay = 1;
     }
   }
@@ -25,12 +26,13 @@ function Gallery(props) {
   let mySliderInterval;
   const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     getGalleryContent();
     getGalleryItems();
     window.addEventListener('resize', updateDimensions);
-    document.getElementsByClassName('content-container')[0].addEventListener('resize', updateDimensions)
+    document
+      .getElementsByClassName('content-container')[0]
+      .addEventListener('resize', updateDimensions);
   }, []);
 
   useEffect(() => {
@@ -70,11 +72,12 @@ function Gallery(props) {
   }
 
   function updateDimensions() {
-    const newSliderWidth = document.getElementsByClassName('content-container')[0].offsetWidth - 80;
+    const newSliderWidth =
+      document.getElementsByClassName('content-container')[0].offsetWidth - 80;
     let initNumItemDisplay = 3;
-    if ((newSliderWidth / initNumItemDisplay) < 300) {
+    if (newSliderWidth / initNumItemDisplay < 300) {
       initNumItemDisplay = 2;
-      if ((newSliderWidth / initNumItemDisplay) < 300) {
+      if (newSliderWidth / initNumItemDisplay < 300) {
         initNumItemDisplay = 1;
       }
     }

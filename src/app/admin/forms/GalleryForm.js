@@ -9,7 +9,7 @@ function GalleryForm(props) {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [galleryItems, setGalleryItems] = useState();
-  const [showAddGalelryItemForm, setShowAddGalleryItemForm] = useState(false);
+  const [showAddGalleryItemForm, setShowAddGalleryItemForm] = useState(false);
 
   useEffect(() => {
     if (props.galleryId) getGallery();
@@ -67,9 +67,9 @@ function GalleryForm(props) {
       });
     }
 
-    let addGalelryItemForm;
-    if (showAddGalelryItemForm === true)
-      addGalelryItemForm = (
+    let addGalleryItemForm;
+    if (showAddGalleryItemForm === true)
+      addGalleryItemForm = (
         <GalleryItemForm
           onSubmit={getGalleryItems}
           galleryId={props.galleryId}
@@ -83,15 +83,15 @@ function GalleryForm(props) {
           className="ui green button labeled icon upload-btn"
           onClick={() =>
             setShowAddGalleryItemForm(
-              showAddGalelryItemForm === true ? false : true
+              showAddGalleryItemForm === true ? false : true
             )
           }
         >
           <i className="plus icon"></i>
-          Bild hochladen
+          Bild hinzufügen
         </a>
 
-        {addGalelryItemForm}
+        {addGalleryItemForm}
         <div className="gallery-images">{galleryItemsDisplay}</div>
       </div>
     );

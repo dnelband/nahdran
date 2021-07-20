@@ -110,22 +110,36 @@ function Crew(props) {
       );
     }
 
+    let readMoreDisplay;
+    if (cm.about.length > 550) {
+      readMoreDisplay = (
+        <a
+          onClick={() => setReadMore(readMore === true ? false : true)}
+          className="read-more"
+        >
+          {readMoreButton}
+        </a>
+      );
+    }
+
+    let profileImageDisplay;
+    if (cm.picture && cm.picture !== null) {
+      profileImageDisplay = (
+        <img className="profile-img" src={cm.picture} width="100" />
+      );
+    }
+
     return (
       <div className="crew" key={i}>
         <div className="img-container">
-          <img className="profile-img" src={cm.picture} width="100" />
+          {profileImageDisplay}
           {titleDisplayTop}
         </div>
         <div className="about-container">
           {titleDisplayInAbout}
           <p className="about">
             {displayAbout}
-            <a
-              onClick={() => setReadMore(readMore === true ? false : true)}
-              className="read-more"
-            >
-              {readMoreButton}
-            </a>
+            {readMoreDisplay}
           </p>
         </div>
       </div>

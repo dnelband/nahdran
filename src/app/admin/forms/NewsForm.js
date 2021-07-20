@@ -4,7 +4,7 @@ import TextEditor from '../../partials/TextEditor';
 
 function NewsForm(props) {
   const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+  const [text, setText] = useState(props.type === 'edit' ? null : '');
 
   useState(() => {
     if (props.itemId) {
@@ -35,6 +35,19 @@ function NewsForm(props) {
     });
   }
 
+  let textEditorDisplay;
+  if (text !== null) {
+    textEditorDisplay = (
+      <TextEditor
+        val={text}
+        onTextEditorUpdate={setText}
+        // placeholder="text"
+        // value={text}
+        // onChange={e => setText(e.target.value)}
+      />
+    );
+  }
+
   return (
     <div className="news-form">
       <input
@@ -43,14 +56,10 @@ function NewsForm(props) {
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
-      <TextEditor
-        val={text}
-        onTextEditorUpdate={setText}
-        // placeholder="text"
-        // value={text}
-        // onChange={e => setText(e.target.value)}
-      />
-      <button onClick={onSubmitClick}>{props.type} news item</button>
+      {textEditorDisplay}
+      <button onClick={onSubmitClick}>
+        {props.type === 'edit' ? 'Aktualisieren' : 'Hinzufügen'}
+      </button>
     </div>
   );
 }

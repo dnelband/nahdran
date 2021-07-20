@@ -3,13 +3,24 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 2vw;
 }
+.gallery-images img {
+  cursor: pointer;
+}
+.gallery-items-container .uploader img {
+  max-height: 400px;
+  width: auto;
+  margin: 0 auto;
+  display: table;
+}
 .upload-btn {
   margin-bottom: 2vh !important;
+  cursor: pointer;
 }
 .my-popup-modal img {
-  width: 55vw;
+  width: auto;
   margin-top: 4vh;
   margin-left: 2vw;
+  max-height: 80vh;
 }
 .my-popup-modal .close-icon {
   color: black;
