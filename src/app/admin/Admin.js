@@ -100,7 +100,9 @@ function AdminHeaderUserMenu(){
   if (showChangePasswordForm === true){
     changePasswordFormDisplay = (
       <React.Fragment>
-        <ChnagePasswordForm user={user} />
+        <ChnagePasswordForm user={user} close={
+          () => setShowChangePasswordForm(showChangePasswordForm === true ? false : true)
+        } />
         <div onClick={() => setShowChangePasswordForm(showChangePasswordForm === true ? false : true)} className="modal-overlay"></div>
       </React.Fragment>
     )
@@ -173,7 +175,7 @@ function ChnagePasswordForm(props){
         {passwordsErrorDisplay}
       </div>
       <div className="modal-footer">
-        <a className="ui button icon">
+        <a className="ui button icon" onClick={props.close}>
           Abbrechen
         </a>
         <a style={{float:"right"}} className="ui primary button icon" onClick={() => onUpdatePasswordClick()}>
