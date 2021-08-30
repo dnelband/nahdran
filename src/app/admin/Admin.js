@@ -72,20 +72,11 @@ function Admin() {
 }
 
 function AdminHeaderUserMenu(){
-
-  const initUser = {
-      "id": 1,
-      "username": "admin",
-      "email": "admin@example.com",
-      "password": "202cb962ac59075b964b07152d234b70",
-      "createdAt": "2021-05-16T13:08:40.000Z",
-      "updatedAt": null
-  }
-  const [ user, setUser ] = useState(initUser);
+  const [ user, setUser ] = useState(null);
   const [ showChangePasswordForm, setShowChangePasswordForm ] = useState(false);
 
   useEffect(() => {
-    // getUser();
+    getUser();
   },[])
 
   function getUser(){
