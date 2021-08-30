@@ -1,13 +1,10 @@
-var db = require('../database/db');
-var path = require('path');
-const { url } = require('inspector');
-
 var pagesController = require('../controllers/pagesController.js');
 var contentsController = require('../controllers/contentsController.js');
 var galleriesController = require('../controllers/galleriesController.js');
 var newsController = require('../controllers/newsController.js');
 var crewController = require('../controllers/crewController.js');
 var messagesController = require('../controllers/messagesController.js');
+var userController = require('../controllers/userController.js');
 
 module.exports = function (app, passport) {
   app.get('/db/pages/', pagesController.getPages);
@@ -32,10 +29,7 @@ module.exports = function (app, passport) {
   app.post('/db/galleryitems/', galleriesController.createGalleryItem);
   app.put('/db/galleryitems/:id', galleriesController.updateGalleryItem);
   app.delete('/db/galleryitems/:id', galleriesController.deleteGalleryItem);
-  app.get(
-    '/db/galleryitemsbygallery/:id',
-    galleriesController.getGalleryItemByGalleryId
-  );
+  app.get('/db/galleryitemsbygallery/:id',galleriesController.getGalleryItemByGalleryId);
 
   app.get('/db/news/', newsController.getNews);
   app.post('/db/news/', newsController.createNewsItem);
@@ -54,6 +48,9 @@ module.exports = function (app, passport) {
   app.get('/db/messages/:id', messagesController.getMessage);
   app.put('/db/messages/:id', messagesController.updateMessage);
   app.delete('/db/messages/:id', messagesController.deleteMessage);
+
+  app.get('/db/user/', userController.getUser);
+  app.post('/db/user/:id', userController.updateUser)
 
   // Login
   app.post('/db/signin/', function (req, res, next) {
@@ -84,6 +81,13 @@ module.exports = function (app, passport) {
         return res.redirect('/admin/');
       });
     })(req, res, next);
+  });
+
+  // Logout
+  app.get('/db/signout/', function (req, res, next){
+    console.log('hello im sign out');
+    req.logout();
+    res.redirect('/');
   });
 
   // function isLoggedIn(req, res, next) {

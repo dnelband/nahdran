@@ -1,5 +1,5 @@
 //load bcrypt
-var bCrypt = require('bcrypt-nodejs');
+var md5 = require("md5");
 
 module.exports = function(passport, user) {
 
@@ -48,13 +48,11 @@ module.exports = function(passport, user) {
           }).then(function(user) {
    
               if (!user) {
-   
                   return done(null, false, {
                       message: 'username does not exist'
                   });
-   
               }
-   
+
               if (user.password !== password) {
                   return done(null, false, {
                       message: 'Incorrect password.'

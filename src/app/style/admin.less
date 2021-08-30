@@ -1,0 +1,63 @@
+#admin {
+    position: relative;
+
+    #user-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 5px;
+        background: #efefef;
+        box-shadow: 1px 1px 2px rgb(0 0 0 / 15%);
+        border: 1px solid #ccc;
+
+        span, a {
+            margin-right: 5px;
+        }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        background: rgba(0,0,0,0.45);
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 9;
+    }
+
+    .modal-window {
+        @height:372px;
+        @width:400px;
+        width: @width;
+        height: @height;
+        top: calc(50% - (@height / 2));
+        left: calc(50% - (@width / 2));
+        position: fixed;
+        z-index: 10;
+        background-color:#efefef;
+        border: 1px solid #ccc;
+
+        .modal-header,
+        .modal-body,
+        .modal-footer {
+            padding: 15px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .modal-body {
+            height: 240px;
+            border-bottom: 1px solid #ccc;
+
+            .form-field {
+                margin-bottom: 20px;
+
+                input {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
