@@ -89,10 +89,13 @@ function Page(props) {
   }
 
   let pageClassName = '';
-  if (props.path === 'Regie_&_Team' || props.path === 'Hinter_den_Kulissen')
+  if (props.path === 'Regie_&_Team' || props.path === 'Hinter_den_Kulissen' || props.path === 'Kontakt')
     pageClassName += 'content-left ';
   if (props.path === 'Hinter_den_Kulissen') {
     pageClassName += 'spacing-top';
+  }
+  if (props.path === 'Kontakt'){
+    pageClassName +=' thin'
   }
   return (
     <div style={pageStyle} className={'page ' + pageClassName} id={props.path}>

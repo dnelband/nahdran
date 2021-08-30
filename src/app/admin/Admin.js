@@ -9,6 +9,7 @@ function Admin() {
 
   let adminPath = window.location.pathname.split('/admin/')[1];
   if (adminPath && adminPath.indexOf('/') > -1) adminPath = adminPath.split('/')[0];
+  
   let adminSectionDisplay;
   switch (adminPath) {
     case 'pages':

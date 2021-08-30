@@ -50,6 +50,9 @@ main,
 .page.content-left .content-container {
   margin: 0 0 0 5vw !important;
 }
+.page.thin .content-container {
+  max-width: 600px;
+}
 .page.spacing-top .content-container {
   margin-left: 3vw !important;
   top: 40vh;
