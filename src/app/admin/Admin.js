@@ -131,11 +131,9 @@ function ChnagePasswordForm(props){
   const [ newPasswordRepeat, setNewPasswordRepeat ] = useState("");
   const [ isMatch, setIsMatch ] = useState(false);
   
-  console.log(isMatch, "isMatch");
-
   useEffect(() => {
     let newIsMatch = false;
-    if (newPassword === newPasswordRepeat) newIsMatch = true;
+    if (newPassword !== "" && newPassword === newPasswordRepeat) newIsMatch = true;
     setIsMatch(newIsMatch);
   },[newPassword, newPasswordRepeat])
 
@@ -154,10 +152,19 @@ function ChnagePasswordForm(props){
     });
   }
 
-  let passwordsErrorDisplay = ""
+  let passwordsErrorDisplay = "";
   if (!isMatch && newPassword !== "" && newPasswordRepeat !== "") {
     passwordsErrorDisplay = <p style={{color:"red"}}>Passwörter sind nicht gleich</p>
-  } else passwordsErrorDisplay = ""
+  }
+
+  let updateButtonDisplay;
+  if (isMatch === true){
+    updateButtonDisplay = (
+      <a style={{float:"right"}} className="ui primary button icon" onClick={() => onUpdatePasswordClick()}>
+        Aktualisieren
+      </a>
+    )
+  }
 
   return (
     <div className="modal-window ui form">
@@ -179,9 +186,7 @@ function ChnagePasswordForm(props){
         <a className="ui button icon" onClick={props.close}>
           Abbrechen
         </a>
-        <a style={{float:"right"}} className="ui primary button icon" onClick={() => onUpdatePasswordClick()}>
-          Aktualisieren
-        </a>
+        {updateButtonDisplay}
       </div>
     </div>
   )
